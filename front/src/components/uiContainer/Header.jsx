@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HeaderItem from '../ui/header-item';
+import '../../index.css'
 
 const Header = () => {
   const [topServices, setTopServices] = useState([]);

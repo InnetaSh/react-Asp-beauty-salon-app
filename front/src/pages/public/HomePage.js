@@ -9,13 +9,13 @@ import OurWorks from '../../components/uiContainer/OurWorks'
 import WeddingBunner from '../../components/uiContainer/WeddingBunner'
 import Services from '../../components/uiContainer/Services'
 
-
+import '../../index.css'
 
 export default function HomePage() {
     const navigate = useNavigate();
 
     return (
-        <div >
+        <div className='main'>
             <Header/>
             <Services/>
            

@@ -9,21 +9,21 @@ namespace beauti_salon_app.Data
             new Services
             {
                 Id = 1,
-                ImageSrc = "/img/Products/aromatherapy.jpg",
+                ImageSrc = "/img/Services/aromatherapy.jpg",
                 Title = "Aromatherapy",
                 Price = "From $99"
             },
             new Services
             {
                 Id = 2,
-                ImageSrc = "/img/Products/body-massage.jpg",
+                ImageSrc = "/img/Services/body-massage.jpg",
                 Title = "Body Massage",
                 Price = "From $99/hour"
             },
             new Services
             {
                 Id = 3,
-                ImageSrc = "/img/Products/manicure-pedicure.jpg",
+                ImageSrc = "/img/Services/manicure-pedicure.jpg",
                 Title = "Manicure & Pedicure",
                 Price = "From $49"
             }
