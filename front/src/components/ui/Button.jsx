@@ -2,7 +2,7 @@ import React from 'react';
 
 const Button = ({ onClick,  text }) => {
   return (
-    <button className="btn-gold " onClick={onClick}>
+    <button className="btn-gold btn" onClick={onClick}>
       {text}
     </button>
   );
