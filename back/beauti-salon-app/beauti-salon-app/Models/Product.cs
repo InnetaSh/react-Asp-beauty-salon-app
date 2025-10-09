@@ -1,0 +1,11 @@
+﻿namespace beauti_salon_app.Models
+{
+    public class Product
+    {
+        public int Id { get; set; }
+        public string ImageSrc { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string Price { get; set; } = string.Empty;
+        public string NewPrice { get; set; } = string.Empty;
+    }
+}

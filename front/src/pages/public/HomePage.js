@@ -2,6 +2,12 @@
 // /
 import React from 'react'
 import { useNavigate } from "react-router-dom"
+import Header from '../../components/uiContainer/Header'
+import Products from '../../components/uiContainer/Products'
+import Teams from '../../components/uiContainer/Teams'
+import OurWorks from '../../components/uiContainer/OurWorks'
+import WeddingBunner from '../../components/uiContainer/WeddingBunner'
+import Services from '../../components/uiContainer/Services'
 
 
 
@@ -9,12 +15,12 @@ export default function HomePage() {
     const navigate = useNavigate();
 
     return (
-        <div className="card">
-            <h2>Главная</h2>
-            <p>Демо роутинг</p>
-            <div className="button-container">
-                <button onClick={() => navigate("/products")}>Перейти в каталог</button>
-            </div>
+        <div >
+            <Header/>
+            <Services/>
+           
+           
+
 
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       try {
-        const decoded = jwt_decode(storedToken);
+        const decoded = jwtDecode(storedToken);
         if (decoded.exp * 1000 > Date.now()) {
           setUser({
             id: decoded.sub,
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post('/api/auth/login', { email, password });
       const jwt = response.data.token;
 
-      const decoded = jwt_decode(jwt);
+      const decoded = jwtDecode(jwt);
 
       const userData = {
         id: decoded.sub,
