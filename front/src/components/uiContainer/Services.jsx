@@ -1,19 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CardList from '../ui/card-list';
+import BtnList from '../ui/btn-list';
 
-const Services = () => {
+const Services = ({ flag }) => {
+    const navigate = useNavigate();
+    
   const [services, setServices] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All'); // по умолчанию All
 
   useEffect(() => {
     fetch('/api/UI/services')
       .then(res => res.json())
-      .then(data => setServices(data));
+      .then(data => {
+        setServices(data);
+
+        const uniqueCategories = ['All', ...new Set(data.map(item => item.category))];
+        setCategories(uniqueCategories);
+        console.log('uniqueCategories', uniqueCategories);
+      });
   }, []);
 
   const handleLearnMore = (id) => {
+     navigate(`/services/${id}`);
     console.log('Learn more about product', id);
-
   };
+
+  const filteredServices =
+    selectedCategory && selectedCategory !== 'All'
+      ? services.filter(item => item.category === selectedCategory)
+      : services;
 
   return (
     <div>
@@ -22,8 +39,17 @@ const Services = () => {
         <div className='bottom-line'></div>
       </div>
 
-      <CardList products={services} onLearnMore={handleLearnMore} />;
+      {flag && (
+        <BtnList
+          type_list={categories}
+          onSelect={setSelectedCategory}
+        />
+      )}
 
+      <CardList
+        products={filteredServices}
+        onLearnMore={handleLearnMore}
+      />
     </div>
   );
 };

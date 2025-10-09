@@ -3,7 +3,9 @@ import HeaderBunner from './header-bunner';
 
 import '../../index.css';
 
-const HeaderItem = ({ bunners, onLearnMore }) => {
+
+
+const HeaderComponent = ({ bunners, onLearnMore,name,menu_list }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -51,6 +53,8 @@ const HeaderItem = ({ bunners, onLearnMore }) => {
         title={currentBunner.title}
         description={currentBunner.description}
         onLearnMore={() => onLearnMore(currentBunner.id)}
+        name ={name}
+        menu_list={menu_list}
       />
 
    
@@ -67,4 +71,4 @@ const HeaderItem = ({ bunners, onLearnMore }) => {
   );
 };
 
-export default HeaderItem;
+export default HeaderComponent;

@@ -20,7 +20,7 @@ export default function HomePage() {
             <div className='main-container'>
                 <Header />
                 <InfoWellcome />
-                <Services />
+                <Services flag={false}/>
                 <WeddingBunner />
                 <Teams/>
                 <OurWorks/>

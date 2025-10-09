@@ -1,13 +1,21 @@
 import React from 'react';
 import Button from './Button'; 
+import MenuList from './menu-list';
+import Menu from '../ui/menu';
 
-const HeaderBunner = ({ imageSrc, title, description, onLearnMore }) => {
+
+
+const HeaderBunner = ({ imageSrc, title,name, menu_list, description, onLearnMore }) => {
   return (
     <div className="header-bunner">
       <div className="header-bunner-image-wrapper">
         <img src={imageSrc} alt={title} className="header-bunner-image" />
       </div>
+      <Menu menu_list={menu_list} name = {name}/>
       <div className="header-bunner-content">
+        
+
+
         <h3 className="header-bunner-title">{title}</h3>
         <p className="card-text">{description}</p>
         <Button onClick={onLearnMore} text= "READ MORE" />

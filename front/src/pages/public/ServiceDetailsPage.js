@@ -2,13 +2,20 @@
 /// /services/:id
 
 import { useParams } from 'react-router-dom';
+import Header from '../../components/uiContainer/Header'
 
 
 
 export default function ServiceDetailsPage() {
   
 
-  return (
-    <></>
-  );
+  return(
+         <div className='main'>
+            <div className='main-container'>
+                <Header />
+               
+               
+            </div>
+        </div>
+    )
 }

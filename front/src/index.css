@@ -244,7 +244,7 @@ position: relative;
 .header-bunner-content{
   position: relative;
   z-index: 1;
-  max-width: 600px;
+  width: 100%;
   padding: 0 20px;
 }
 .header-bunner-content h3{
@@ -268,12 +268,7 @@ position: relative;
   margin: 0 0 10px 0;
   letter-spacing: 0.1em;
 }   
-.menu-content {
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--color-gold);
-  margin: 0;
-}
+
 
 
 /* ===============================
@@ -568,8 +563,7 @@ position: relative;
 =============================== */
 .menu_btn {
   background: transparent;
-  color: var(--color-gold);
-  border: 2px solid var(--color-gold);
+  color: var(--color-light);
   padding: 10px 20px;
   font-weight: 600;
   cursor: pointer;
@@ -578,13 +572,16 @@ position: relative;
   text-align: center;
   font-family: var(--font-family);
   user-select: none;
+  border: none;
+ text-transform: uppercase;
+  border-bottom: 2px solid transparent;
 }
 .menu_btn:hover {
-  background-color: var(--color-gold);
-  color: var(--color-dark);
+  border-bottom: 2px solid var(--color-gold);
+  color: var(--color-white);
 }
 .menu_btn:active {
-  transform: scale(0.98);
+   border-bottom: 2px solid var(--color-gold);
 }
 .menu_btn:disabled {
   background-color: var(--color-muted);
@@ -596,13 +593,25 @@ position: relative;
   background-color: var(--color-muted);
   color: var(--color-dark);
 }
+.menu-container{
+  position: absolute;
+  top: 20px;
+  left: 5%;
+  z-index: 5;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menu{
+  width: 60%;
+}
 
 .menu-list {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 5px;
   padding: 20px;
-  background-color: var(--color-light);
 }
 
