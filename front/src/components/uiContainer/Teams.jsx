@@ -15,7 +15,15 @@ const Teams = () => {
     
   };
 
-  return <CardList products={teams} onLearnMore={handleLearnMore} />;
+  return (
+   <div>
+      <div className='title-container'>
+        <h3 className='title'>Our Team</h3>
+        <div className='bottom-line'></div>
+      </div>
+  <CardList products={teams} onLearnMore={handleLearnMore} />;
+    </div>
+  );
 };
 
 export default Teams;

@@ -1,19 +1,19 @@
 import React from 'react';
-import Button from './Button'; 
+import BunnerItem from './bunner-item';
 
-const Bunner = ({ imageSrc, title, text: description, onLearnMore }) => {
-  return (
-    <div className="bunner">
-      <div className="bunner-image-wrapper">
-        <img src={imageSrc} alt={title} className="bunner-image" />
-      </div>
-      <div className="bunner-content">
-        <h3 className="bunner-title">{title}</h3>
-        <p className="card-text">FROM ${description}</p>
-        <Button onClick={onLearnMore} text= "READ MORE" />
-      </div>
-    </div>
-  );
+const Bunner = ({ bunners, onLearnMore }) => {
+    return (
+        <div className="bunner-container">
+                {bunners.map((bunner) => (
+                    <BunnerItem
+                        key={bunner.id}
+                        imageSrc={bunner.imageSrc}
+                        title={bunner.title}
+                        description={bunner.description}
+                        onLearnMore={() => onLearnMore(bunner.id)}
+                    />
+                ))}
+        </div>
+    );
 };
-
 export default Bunner;

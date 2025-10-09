@@ -12,7 +12,7 @@ const Card = ({ imageSrc, title, price, onLearnMore }) => {
 
       <div className="card-content">
         <h3 className="card-title">{title}</h3>
-        <p className="card-price">FROM ${price}</p>
+        <p className="card-price">{price}</p>
         <ButtonDark onClick={onLearnMore} text="LEARN MORE" />
       </div>
     

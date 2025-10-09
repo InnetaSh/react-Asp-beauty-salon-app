@@ -8,6 +8,7 @@ import Teams from '../../components/uiContainer/Teams'
 import OurWorks from '../../components/uiContainer/OurWorks'
 import WeddingBunner from '../../components/uiContainer/WeddingBunner'
 import Services from '../../components/uiContainer/Services'
+import InfoWellcome from '../../components/uiContainer/InfoWellcome'
 
 import '../../index.css'
 
@@ -16,12 +17,15 @@ export default function HomePage() {
 
     return (
         <div className='main'>
-            <Header/>
-            <Services/>
-           
-           
-
-
+            <div className='main-container'>
+                <Header />
+                <InfoWellcome />
+                <Services />
+                <WeddingBunner />
+                <Teams/>
+                <OurWorks/>
+                <Products />
+            </div>
         </div>
     )
 }

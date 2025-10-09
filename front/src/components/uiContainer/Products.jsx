@@ -15,7 +15,15 @@ const Products = () => {
     
   };
 
-  return <CardList products={products} onLearnMore={handleLearnMore} />;
+  return (
+    <div>
+      <div className='title-container'>
+        <h3 className='title'>Featured Products</h3>
+        <div className='bottom-line'></div>
+      </div>
+      <CardList products={products} onLearnMore={handleLearnMore} />;
+    </div>
+  );
 };
 
 export default Products;

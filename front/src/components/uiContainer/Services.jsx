@@ -12,10 +12,20 @@ const Services = () => {
 
   const handleLearnMore = (id) => {
     console.log('Learn more about product', id);
-    
+
   };
 
-  return <CardList products={services} onLearnMore={handleLearnMore} />;
+  return (
+    <div>
+      <div className='title-container'>
+        <h3 className='title'>Our Services</h3>
+        <div className='bottom-line'></div>
+      </div>
+
+      <CardList products={services} onLearnMore={handleLearnMore} />;
+
+    </div>
+  );
 };
 
 export default Services;

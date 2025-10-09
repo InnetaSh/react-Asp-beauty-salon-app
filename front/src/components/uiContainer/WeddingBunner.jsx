@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import HeaderItem from '../ui/header-item';
+import Bunner from '../ui/bunner';
 
 const WeddingBunner = () => {
   const [bunner, setBunner] = useState([]);
@@ -15,7 +15,11 @@ const WeddingBunner = () => {
     
   };
 
-  return <HeaderItem bunners={bunner} onLearnMore={handleLearnMore} />;
+  return <Bunner
+       bunners={bunner} onLearnMore={handleLearnMore}
+      
+
+  />;
 };
 
 export default WeddingBunner;

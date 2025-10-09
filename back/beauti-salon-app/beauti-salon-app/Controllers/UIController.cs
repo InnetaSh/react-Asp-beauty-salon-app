@@ -43,5 +43,15 @@ namespace beauti_salon_app.Controllers
         {
             return Ok(ProductData.Products);
         }
+        [HttpGet("infoText")]
+        public IActionResult GetInfoText()
+        {
+            return Ok(InfoTextData.Texts);
+        }
+        [HttpGet("name")]
+        public IActionResult GetName()
+        {
+            return Ok(NameData.NameTitle);
+        }
     }
 }

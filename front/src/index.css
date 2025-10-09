@@ -8,6 +8,11 @@
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
 body {
   background-color: var(--color-dark);
   box-sizing: border-box;
@@ -17,13 +22,22 @@ body {
 
 
 .main {
-  background-color: var(--color-dark);
+  background-color: var(--color-gold);
   color: var(--color-white);
   font-family: var(--font-family);
   margin: 0;
-  padding: 0;
-  border: 30px solid var(--color-gold);
-  ;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-container{
+ background-color: var(--color-dark);
+ width: 100%;
+ height: 100%;
+ padding-bottom: 50px;
+ position: relative;
 }
 
 /* Кнопка с золотым цветом */
@@ -57,6 +71,29 @@ body {
 h1, h2, h3 {
   color: var(--color-white);
 }
+.title-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 100%;
+}
+.title{
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: 0.1em;
+  color: var(--color-white);
+  margin-bottom: 0;
+}
+.bottom-line{
+  width: 40px;
+  border-top: 3px solid var(--color-light);
+  margin: 20px 0;
+}
 
 /* Ссылки */
 a {
@@ -69,6 +106,13 @@ a:hover {
   text-decoration: underline;
 }
 
+
+.info-container{
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
 
 
 /* ===============================
@@ -109,7 +153,7 @@ a:hover {
 /* ===============================
           header
 =============================== */
-.header-bunner {
+.header-bunner{
   background-color: var(--color-dark);
   width: 100%;
   height: 500px;
@@ -121,7 +165,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-
+position: relative;
 }
 .bunner-slider{
 position: relative;
@@ -138,7 +182,7 @@ position: relative;
   overflow: hidden;
   z-index: 0;
 }
-.header-bunner-image-wrapper img {
+.header-bunner-image-wrapper img{
   width: 100%;
   height: 100%;
   object-fit:cover;
@@ -237,17 +281,19 @@ position: relative;
 =============================== */
 .card {
   background-color: var(--color-dark);
-  overflow: hidden;
   width: 100%;
-  height: 250px;
   color: var(--color-white);
   font-family: var(--font-family);
-  
   box-shadow: 0 0 8px rgba(0,0,0,0.6);
   padding: 10px;
   border: 1px solid var(--color-grey);
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
   
 }
+
+
 .card-container{
   position: relative;
   width: 100%;
@@ -264,7 +310,22 @@ position: relative;
   height: 100%;
   overflow: hidden;
   z-index: 0;
+  
 }
+
+
+.card-image-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 -90px 90px -50px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+  z-index: 2;
+}
+
 .card-container img {
   width: 100%;
   height: 100%;
@@ -284,12 +345,18 @@ position: relative;
   filter: brightness(1);
 }
 
-.card-content {
-  padding: 15px 20px;
+ .card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   position: absolute;
-  margin-top: -120px;
+  gap: 0px;
+  bottom: -20px;
+  width: 100%;
   z-index: 2;
+  
+ 
 }
 
 .card-title {
@@ -314,26 +381,35 @@ position: relative;
           card-list
 =============================== */
 .card-list {
-  width: 80%;
-  margin-left: 10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--color-dark);
+}
+.card-list-container {
+  width: 90%;
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-  padding: 20px;
   background-color: var(--color-dark);
 }
 
 /* >= 600px — 2 карточки */
-@media (min-width: 600px) {
-  .card-list {
+@media (min-width: 700px) {
+  .card-list-container {
     grid-template-columns: repeat(2, 1fr);
+     gap: 30px;
   }
 }
 
 /* >= 900px — 3 карточки */
-@media (min-width: 900px) {
-  .card-list {
+@media (min-width: 960px) {
+  .card-list-container {
     grid-template-columns: repeat(3, 1fr);
+     gap: 30px;
   }
 }
 
@@ -348,24 +424,29 @@ position: relative;
   padding: 20px;
    background-color: var(--color-dark);
 }
-.bottom-line{
-  width: 50px;
-  border-bottom: 1px solid var(--color-muted);
-  margin: 20px 0;
-}
+
 /* ===============================
           banner
 =============================== */
-.bunner{
+.bunner-container{
+  background-color: var(--color-dark);
   width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-white);
-  text-align: center;
-  font-family: var(--font-family);
+  height: 100%;
+  padding-bottom: 50px;
+  margin-top: 50px;
   position: relative;
+}
+.bunner{
+  background-color: var(--color-dark);
+  width: 100%;
+  height: 500px;
+  padding: 20px 0;
+  color: var(--color-white);
+  font-family: var(--font-family);
+  display: flex;
+  justify-content:left;
+  align-items: center;
+position: relative;
 }
 .bunner-image-wrapper{
   position: absolute;
@@ -374,16 +455,22 @@ position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: -1;
+  z-index: 0;
 }
-.bunner-image{
+
+.bunner-image-wrapper img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: brightness(0.5);
+  object-fit:cover;
 }
+
 .bunner-content{
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content:left;
+  align-items:start;
+  width: 50%;
   max-width: 600px;
   padding: 0 20px;
 }
@@ -405,6 +492,76 @@ position: relative;
   line-height: 1.5;
   color: var(--color-white);
 }
+
+/* ===============================
+          img-list
+=============================== */
+.img-list {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--color-dark);
+  
+}
+.img-list-container {
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  background-color: var(--color-dark);
+  padding: 10px;
+  border: 0.5px solid var(--color-grey);border: 0.5px solid var(--color-grey);
+}
+
+/* >= 600px — 2 карточки */
+@media (min-width: 700px) {
+  .img-list-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* >= 900px — 3 карточки */
+@media (min-width: 960px) {
+  .img-list-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.img {
+  background-color: var(--color-dark);
+  width: 100%;
+  color: var(--color-white);
+  font-family: var(--font-family);
+  box-shadow: 0 0 8px rgba(0,0,0,0.6);
+  position: relative;
+   width: 100%;
+  height: 200px;
+}
+
+
+
+.img-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  
+}
+
+
+
+.img-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+}
+
 
 /* ===============================
           menu
