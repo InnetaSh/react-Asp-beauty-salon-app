@@ -4,28 +4,29 @@ import CardList from '../ui/card-list';
 import BtnList from '../ui/btn-list';
 
 const Services = ({ flag }) => {
-    const navigate = useNavigate();
-    
+  const navigate = useNavigate();
+
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All'); // по умолчанию All
 
-  useEffect(() => {
-    fetch('/api/UI/services')
-      .then(res => res.json())
-      .then(data => {
-        setServices(data);
+useEffect(() => {
+  const url = '/api/services';
 
-        const uniqueCategories = ['All', ...new Set(data.map(item => item.category))];
-        setCategories(uniqueCategories);
-        console.log('uniqueCategories', uniqueCategories);
-      });
-  }, []);
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      // Если flag true — фильтруем, иначе берем все
+      const filteredServices = flag ? data.filter(item => item.TopService === true) : data;
+      setServices(filteredServices);
 
-  const handleLearnMore = (id) => {
-     navigate(`/services/${id}`);
-    console.log('Learn more about product', id);
-  };
+      const uniqueCategories = ['All', ...new Set(filteredServices.map(item => item.category))];
+      setCategories(uniqueCategories);
+      console.log('Загруженные сервисы:', filteredServices);
+    })
+    .catch(err => console.error('Ошибка при загрузке сервисов:', err));
+}, [flag]);
+
 
   const filteredServices =
     selectedCategory && selectedCategory !== 'All'

@@ -1,12 +1,21 @@
-﻿namespace beauti_salon_app.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace beauti_salon_app.Models
 {
-    public class Services
+    public class Service
     {
         public int Id { get; set; }
-        public string ImageSrc { get; set; } = string.Empty;
-        public string Title { get; set; } = string.Empty;
-        public string Price { get; set; } = string.Empty;
+        [Required]
+        public string Title { get; set; }
+        public string? Description { get; set; }
+        public string ImageSrc { get; set; }
+        public string Category { get; set; }
+        public string Price { get; set; }
 
-        public string Category { get; set; } = string.Empty;
+        public bool? TopService { get; set; } = false;
+        public List<SubService> SubServices { get; set; } = new();
     }
+
+  
 }

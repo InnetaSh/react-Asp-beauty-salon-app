@@ -4,9 +4,9 @@ namespace beauti_salon_app.Data
 {
     public static class ServiceData
     {
-        public static List<Services> Services => new List<Services>
+        public static List<Service> Services => new List<Service>
         {
-            new Services
+            new Service
             {
                 Id = 1,
                 ImageSrc = "/img/Services/aromatherapy.jpg",
@@ -14,7 +14,7 @@ namespace beauti_salon_app.Data
                 Price = "From $99",
                 Category ="Personal Care"
             },
-            new Services
+            new Service
             {
                 Id = 2,
                 ImageSrc = "/img/Services/body-massage.jpg",
@@ -23,7 +23,7 @@ namespace beauti_salon_app.Data
                 Category ="Personal Care"
 
             },
-            new Services
+            new Service
             {
                 Id = 3,
                 ImageSrc = "/img/Services/manicure-pedicure.jpg",
