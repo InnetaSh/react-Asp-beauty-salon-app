@@ -1,7 +1,7 @@
 import React from 'react';
 import BunnerItem from './bunner-item';
 
-const Bunner = ({ bunners, onLearnMore, flag,title }) => {
+const BunnerSmall = ({ bunners, onLearnMore, flag,title }) => {
     return (
         <div>
             {flag && (
@@ -24,4 +24,4 @@ const Bunner = ({ bunners, onLearnMore, flag,title }) => {
         </div>
     );
 };
-export default Bunner;
+export default BunnerSmall;

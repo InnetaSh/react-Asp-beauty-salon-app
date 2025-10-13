@@ -16,6 +16,8 @@ const WeddingBunner = () => {
   };
 
   return <Bunner
+      flag={false}
+      title = "Wedding Services"
        bunners={bunner} onLearnMore={handleLearnMore}
       
 

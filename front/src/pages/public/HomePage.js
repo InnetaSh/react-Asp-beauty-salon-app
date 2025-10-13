@@ -2,7 +2,7 @@
 // /
 import React from 'react'
 import { useNavigate } from "react-router-dom"
-import Header from '../../components/uiContainer/Header'
+import MainHeader from '../../components/uiContainer/MainHeader'
 import Products from '../../components/uiContainer/Products'
 import Teams from '../../components/uiContainer/Teams'
 import OurWorks from '../../components/uiContainer/OurWorks'
@@ -18,7 +18,7 @@ export default function HomePage() {
     return (
         <div className='main'>
             <div className='main-container'>
-                <Header />
+                <MainHeader />
                 <InfoWellcome />
                 <Services flag={false}/>
                 <WeddingBunner />

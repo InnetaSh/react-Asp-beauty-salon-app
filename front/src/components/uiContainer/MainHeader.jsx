@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import HeaderComponent from '../ui/header-component';
+import MainHeaderComponent from '../ui/main-header-component';
 
 import '../../index.css'
 
@@ -12,19 +12,19 @@ const menu_list = [
   { title: 'register', path: '/register' }
 ];
 
-const Header = () => {
-  const [topServices, setTopServices] = useState([]);
+const MainHeader = () => {
+  const [bgHeader, setBgHeader] = useState([]);
    const [name, setName] = useState("");
 
   useEffect(() => {
-  fetch('/api/UI/bgHeader')
+  fetch('/api/UI/top-services')
     .then(res => {
       console.log('Ответ от сервера:', res);
       return res.json();
     })
     .then(data => {
       console.log('Получили данные:', data);
-      setTopServices(data);
+      setBgHeader(data);
     })
     .catch(err => console.error('Ошибка при загрузке:', err));
 }, []);
@@ -39,13 +39,13 @@ useEffect(() => {
       });
   }, []);
 
-console.log(topServices);
+console.log(bgHeader);
   const handleLearnMore = (id) => {
     console.log('Learn more about topServices', id);
     
   };
 
-  return <HeaderComponent bunners={topServices} name = {name} menu_list={menu_list} onLearnMore={handleLearnMore} />;
+  return <MainHeaderComponent bunners={bgHeader} name = {name} menu_list={menu_list} onLearnMore={handleLearnMore} />;
 };
 
-export default Header;
+export default MainHeader;

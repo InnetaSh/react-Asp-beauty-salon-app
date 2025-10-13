@@ -20,6 +20,12 @@ namespace beauti_salon_app.Controllers
             return Ok(TopServiceData.TopServices);
         }
 
+        [HttpGet("bgHeader")]
+        public IActionResult GetBgHeaderImg()
+        {
+            return Ok(BgHeaderImgData.bgHeader);
+        }
+
         [HttpGet("wedding")]
         public IActionResult GetWeddingBunners()
         {
