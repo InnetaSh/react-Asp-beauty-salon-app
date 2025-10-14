@@ -29,6 +29,7 @@ import ScheduleAdminPage from './pages/admin/ScheduleAdminPage';
 import AppointmentsAdminPage from './pages/admin/AppointmentsAdminPage';
 import ReviewsAdminPage from './pages/admin/ReviewsAdminPage';
 import StatisticsPage from './pages/admin/StatisticsPage';
+import ServiceCategoryDetailPage from './pages/public/ServiceCategoryDetailPage';
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage isMain={false} />} />
         <Route path="/services/:category" element={<ServiceCategoryPage />} />
-       <Route path="/services/:category/:id" element={<ServiceCategoryPage />} />
+       <Route path="/services/:category/:subcategory" element={<ServiceCategoryDetailPage />} />
 
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />

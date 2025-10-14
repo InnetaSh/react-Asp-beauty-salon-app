@@ -13,9 +13,12 @@ namespace beauti_salon_app.Models
         public string Experience { get; set; }
         public string Photo { get; set; }
         public string Specialization { get; set; }
+        public bool? TopMaster { get; set; } = false;
 
         // Навигационное свойство для связки с подуслугами
         public List<SubServiceMaster> SubServiceMasters { get; set; } = new();
+
+        public List<PortfolioItem> PortfolioItems { get; set; } = new();
     }
 
     

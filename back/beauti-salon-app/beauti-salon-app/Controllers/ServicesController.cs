@@ -146,8 +146,27 @@ namespace beauti_salon_app.Controllers
                 return StatusCode(500, "Error updating the service");
             }
 
-            return NoContent(); // или Ok(existingService) если хочешь вернуть результат
+            return NoContent(); 
         }
+
+        // GET: api/Services/subservice/by-title?title=Sports Massage
+        [HttpGet("subservice/by-title")]
+        public async Task<ActionResult<SubService>> GetSubServiceByTitle([FromQuery] string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                return BadRequest(new { message = "Title is required" });
+
+            var subService = await _context.SubServices
+                .Include(ss => ss.SubServiceMasters)
+                    .ThenInclude(sm => sm.Master)
+                .FirstOrDefaultAsync(ss => ss.Title.ToLower() == title.ToLower());
+
+            if (subService == null)
+                return NotFound(new { message = "SubService not found" });
+
+            return Ok(subService); 
+        }
+
 
 
     }

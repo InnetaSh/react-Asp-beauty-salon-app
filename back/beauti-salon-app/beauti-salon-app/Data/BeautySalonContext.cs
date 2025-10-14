@@ -16,6 +16,8 @@ namespace beauti_salon_app.Data
         public DbSet<Master> Masters { get; set; }
         public DbSet<SubServiceMaster> SubServiceMasters { get; set; }
 
+        public DbSet<PortfolioItem> PortfolioItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            
@@ -31,6 +33,12 @@ namespace beauti_salon_app.Data
                 .HasOne(sm => sm.Master)
                 .WithMany(m => m.SubServiceMasters)
                 .HasForeignKey(sm => sm.MasterId);
+
+            modelBuilder.Entity<PortfolioItem>()
+                .HasOne(p => p.Master)
+                .WithMany(m => m.PortfolioItems)
+                .HasForeignKey(p => p.MasterId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

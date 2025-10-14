@@ -7,17 +7,28 @@ import Header from '../../components/uiContainer/Header';
 import BunnerImg from '../../components/ui/bunner-img';
 import BunnerTitle from '../../components/ui/bunner-title';
 import BtnGreyList from '../../components/ui/btn-grey-list';
+import CardListSubService from "../../components/ui/card-list-sub-service"
 
 export default function ServiceCategoryPage() {
   const { category } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   const decodedCategory = formatUrlToCategory(category);
 
   const { categories = [], services = [] } = location.state || {};
   const [bunner, setBunner] = useState(services); 
 
-  const navigate = useNavigate();
 
+
+const subServiceTitles = services
+  ?.filter(service => service?.category?.toLowerCase() === decodedCategory?.toLowerCase())
+  ?.flatMap(service => service?.subServices || [])
+  ?.filter(Boolean) || [];
+
+
+console.log("SubService Titles:", subServiceTitles);
+console.log("services",services);
+console.log("categories",decodedCategory);
 
   useEffect(() => {
     if (!services?.length) {
@@ -35,6 +46,17 @@ export default function ServiceCategoryPage() {
     console.log('Записаться на услугу:', foundBanner);
  
   };
+
+  const handleSubCategory= (subServiceTitle) => {
+   
+
+    const urlSubCategory = formatCategoryToUrl(subServiceTitle); 
+     console.log('Записаться на услугу:', category, urlSubCategory);
+   
+    navigate(`/services/${category}/${urlSubCategory}`);
+ 
+  };
+
   const handleCategoryClick = (clickedCategory) => {
     const urlCategory = formatCategoryToUrl(clickedCategory);
     if (urlCategory === "all"){
@@ -62,6 +84,7 @@ export default function ServiceCategoryPage() {
               <>
               <BunnerImg flag={true} bunners={[foundBanner]} />
                <p>{foundBanner.description}</p>
+               <CardListSubService products={subServiceTitles} onLearnMore={handleSubCategory} />
                </>
             )}
           </div>
