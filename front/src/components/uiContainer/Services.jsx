@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { formatCategoryToUrl } from '../../utils/urlHelpers';
 import CardList from '../ui/card-list';
 import BtnList from '../ui/btn-list';
 
-const Services = ({ flag }) => {
+const Services = ({ flag: isMain }) => {
   const navigate = useNavigate();
 
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All'); // по умолчанию All
 
-useEffect(() => {
-  const url = '/api/services';
+  useEffect(() => {
+    const url = '/api/services' ;
 
   fetch(url)
     .then(res => res.json())
     .then(data => {
       // Если flag true — фильтруем, иначе берем все
-      const filteredServices = flag ? data.filter(item => item.TopService === true) : data;
+      const filteredServices = isMain ? data.filter(item => item.topService === true) : data;
       setServices(filteredServices);
 
       const uniqueCategories = ['All', ...new Set(filteredServices.map(item => item.category))];
@@ -25,7 +26,15 @@ useEffect(() => {
       console.log('Загруженные сервисы:', filteredServices);
     })
     .catch(err => console.error('Ошибка при загрузке сервисов:', err));
-}, [flag]);
+}, [isMain]);
+
+
+
+const handleLearnMore = (category) => {
+  const urlCategory = formatCategoryToUrl(category);
+  navigate(`/services/${urlCategory}`, { state: { categories, services } });
+  console.log('Learn more about product', category);
+};
 
 
   const filteredServices =
@@ -40,7 +49,7 @@ useEffect(() => {
         <div className='bottom-line'></div>
       </div>
 
-      {flag && (
+      {isMain && (
         <BtnList
           type_list={categories}
           onSelect={setSelectedCategory}

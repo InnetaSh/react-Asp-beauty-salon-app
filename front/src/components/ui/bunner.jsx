@@ -15,7 +15,7 @@ const Bunner = ({ bunners, onLearnMore, flag,title }) => {
                     <BunnerItem
                         key={bunner.id}
                         imageSrc={bunner.imageSrc}
-                        title={bunner.title}
+                        title={bunner.category}
                         description={bunner.description}
                         onLearnMore={() => onLearnMore(bunner.id)}
                     />

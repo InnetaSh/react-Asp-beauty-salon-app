@@ -17,5 +17,5 @@ namespace beauti_salon_app.Models
         public List<SubService> SubServices { get; set; } = new();
     }
 
-  
+
 }

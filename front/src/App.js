@@ -6,7 +6,7 @@ import ProtectedRoute from './components/ui/ProtectedRoute';
 // Публичные страницы
 import HomePage from './pages/public/HomePage';
 import ServicesPage from './pages/public/ServicesPage';
-import ServiceDetailsPage from './pages/public/ServiceDetailsPage';
+import ServiceCategoryPage from './pages/public/ServiceCategoryPage';
 import ProductsPage from './pages/public/ProductsPage';
 import ProductDetailsPage from './pages/public/ProductDetailsPage';
 import ReviewsPage from './pages/public/ReviewsPage';
@@ -37,8 +37,10 @@ function App() {
       <Routes>
         {/* Публичные маршруты */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/:id" element={<ServiceDetailsPage />} />
+        <Route path="/services" element={<ServicesPage isMain={false} />} />
+        <Route path="/services/:category" element={<ServiceCategoryPage />} />
+       <Route path="/services/:category/:id" element={<ServiceCategoryPage />} />
+
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />
         <Route path="/reviews" element={<ReviewsPage />} />

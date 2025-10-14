@@ -11,7 +11,7 @@ const CardList = ({ products, onLearnMore }) => {
                         imageSrc={product.imageSrc}
                         title={product.title}
                         price={product.price}
-                        onLearnMore={() => onLearnMore(product.id)}
+                        onLearnMore={() => onLearnMore(product.category)}
                     />
                 ))}
             </div>

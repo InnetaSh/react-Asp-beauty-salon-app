@@ -5,14 +5,14 @@ import Header from '../../components/uiContainer/Header';
 import Services from '../../components/uiContainer/Services';
 
 
-export default function ServicesPage() {
+export default function ServicesPage({flag}) {
   
 
   return (
     <div className='main'>
       <div className='main-container'>
         <Header />
-        <Services flag={true} />
+        <Services flag={flag} />
 
        
       </div>
