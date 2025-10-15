@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace beauti_salon_app.Models
 {
@@ -16,11 +17,13 @@ namespace beauti_salon_app.Models
         public TimeOnly AppointmentTime { get; set; }
 
         public int MasterId { get; set; }
-        public Master Master { get; set; }
+        [JsonIgnore]
+        public Master? Master { get; set; }
 
     
         public int SubServiceId { get; set; }
-        public SubService SubService { get; set; }
+        [JsonIgnore]
+        public SubService? SubService { get; set; }
 
 
         public string Status { get; set; } = "Pending"; 
