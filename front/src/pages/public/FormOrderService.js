@@ -10,7 +10,7 @@ import InfoMaster from '../../components/ui/info-master';
 import CardMaster from "../../components/ui/card-master"
 import ImgList from '../../components/ui/img-list';
 
-export default function MasterDetailPage() {
+export default function FormOrderService() {
   const { category, subcategory, masterId } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
 
@@ -54,18 +54,6 @@ export default function MasterDetailPage() {
 
 
 
-useEffect(() => {
-  fetch(`/api/Masters/${master.id}/portfolio`)
-    .then(res => res.json())
-    .then(data => {
-      setWorks(data);
-      console.log("Найден works on detail page: ", data); 
-    })
-    .catch(err => {
-      console.error("Ошибка при получении портфолио:", err);
-    });
-}, []);
-
 
 
   console.log(works);
@@ -97,20 +85,7 @@ useEffect(() => {
 
 
         <div className="main-details">
-          <div className='left-container'>
-            <CardMaster
-              customClass="master-info"
-              key={master.id}
-              photo={master.photo}
-              name=""
-              text="записаться"
-              onLearnMore={() => handleMasterInfo(master.id)}
-            />
-
-          </div>
-          <div className='right-container'>
-            <InfoMaster master={master} />
-          </div>
+          
         </div>
         
       </div>

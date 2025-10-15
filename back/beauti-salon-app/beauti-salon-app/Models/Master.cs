@@ -19,6 +19,8 @@ namespace beauti_salon_app.Models
         public List<SubServiceMaster> SubServiceMasters { get; set; } = new();
 
         public List<PortfolioItem> PortfolioItems { get; set; } = new();
+
+        public List<OrderService> OrderServices { get; set; } = new();
     }
 
     

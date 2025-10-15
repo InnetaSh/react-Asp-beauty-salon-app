@@ -1,4 +1,5 @@
 ﻿using beauti_salon_app.Models;
+using System.Text.Json.Serialization;
 
 public class PortfolioItem
 {
@@ -8,5 +9,6 @@ public class PortfolioItem
 
     // Внешний ключ к мастеру
     public int MasterId { get; set; }
-    public Master Master { get; set; }
+    [JsonIgnore]
+    public Master? Master { get; set; }
 }

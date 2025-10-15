@@ -13,13 +13,15 @@ namespace beauti_salon_app.Models
         public string Description { get; set; }
         public string Price { get; set; }
 
-        // Внешний ключ к родительскому Service
+
         public int ServiceId { get; set; }
         [JsonIgnore]
         public Service? Service { get; set; }
 
-        // Навигационное свойство к мастерам
+
         public List<SubServiceMaster> SubServiceMasters { get; set; } = new();
+
+        public List<OrderService> OrderServices { get; set; } = new();
     }
 
     
