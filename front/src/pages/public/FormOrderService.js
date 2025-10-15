@@ -21,6 +21,15 @@ export default function FormOrderService() {
   const navigate = useNavigate();
 
 
+ const [clientName, setClientName] = useState("");
+  const [contact, setContact] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState("");
+  const [appointmentTime, setAppointmentTime] = useState("");
+  const [status, setStatus] = useState("Pending");
+  const [message, setMessage] = useState("");
+
+
+
   const [loading, setLoading] = useState(true);
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
@@ -64,6 +73,41 @@ export default function FormOrderService() {
 
 
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const order = {
+      clientName,
+      contact,
+      appointmentDate,
+      appointmentTime,
+      masterId,
+      subServiceId,
+      status,
+    };
+
+    try {
+      const res = await fetch("/api/OrderServices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Ошибка при создании записи");
+      }
+
+      setMessage("Запись успешно создана!");
+      setClientName("");
+      setContact("");
+      setAppointmentDate("");
+      setAppointmentTime("");
+    } catch (err) {
+      setMessage("❌ " + err.message);
+    }
+  };
+
 
 
 
@@ -85,7 +129,48 @@ export default function FormOrderService() {
 
 
         <div className="main-details">
-          
+           <form onSubmit={handleSubmit}>
+        <div>
+          <label>Имя клиента:</label>
+          <input
+            type="text"
+            value={clientName}
+            onChange={(e) => setClientName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Контакт:</label>
+          <input
+            type="text"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Дата:</label>
+          <input
+            type="date"
+            value={appointmentDate}
+            onChange={(e) => setAppointmentDate(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Время:</label>
+          <input
+            type="time"
+            value={appointmentTime}
+            onChange={(e) => setAppointmentTime(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit">Записаться</button>
+      </form>
         </div>
         
       </div>

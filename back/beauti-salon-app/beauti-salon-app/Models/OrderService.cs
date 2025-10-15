@@ -13,7 +13,7 @@ namespace beauti_salon_app.Models
 
         public DateOnly AppointmentDate { get; set; }
 
-        public DateOnly AppointmentTime { get; set; }
+        public TimeOnly AppointmentTime { get; set; }
 
         public int MasterId { get; set; }
         public Master Master { get; set; }

@@ -17,6 +17,7 @@ namespace beauti_salon_app.Data
         public DbSet<SubServiceMaster> SubServiceMasters { get; set; }
 
         public DbSet<PortfolioItem> PortfolioItems { get; set; }
+        public DbSet<OrderService> OrderServices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
