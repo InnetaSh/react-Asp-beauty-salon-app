@@ -11,7 +11,8 @@ namespace beauti_salon_app.Models
         [Required]
         public string Name { get; set; }
         public string Experience { get; set; }
-        public string Photo { get; set; }
+        public string Description { get; set; }
+        public string ImageSrc { get; set; }
         public string Specialization { get; set; }
         public bool? TopMaster { get; set; } = false;
 

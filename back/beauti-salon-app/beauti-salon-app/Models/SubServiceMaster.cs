@@ -14,5 +14,9 @@ namespace beauti_salon_app.Models
         public int MasterId { get; set; }
         [JsonIgnore]
         public Master? Master { get; set; }
+
+        public string Price { get; set; }
+        public string Duration { get; set; }
+
     }
 }
