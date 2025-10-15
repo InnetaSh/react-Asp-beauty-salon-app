@@ -118,6 +118,37 @@ namespace beauti_salon_app.Controllers
             return Ok(ssm);
         }
 
+        // GET: api/Services/subservice/{subServiceId}/masters
+        [HttpGet("subservice/{subServiceId}/masters")]
+        public async Task<ActionResult<IEnumerable<int>>> GetMasterIdsBySubServiceId(int subServiceId)
+        {
+            var masterIds = await _context.SubServiceMasters
+                .Where(ssm => ssm.SubServiceId == subServiceId)
+                .Select(ssm => ssm.MasterId)
+                .ToListAsync();
+
+            if (masterIds == null || !masterIds.Any())
+                return NotFound(new { message = "No masters found for this subservice" });
+
+            return Ok(masterIds);
+        }
+
+        // GET: api/Services/subservice/{subServiceId}/masters/full
+        [HttpGet("subservice/{subServiceId}/masters/full")]
+        public async Task<ActionResult<IEnumerable<Master>>> GetMastersBySubServiceId(int subServiceId)
+        {
+            var masters = await _context.SubServiceMasters
+                .Where(ssm => ssm.SubServiceId == subServiceId)
+                .Include(ssm => ssm.Master)
+                .Select(ssm => ssm.Master)
+                .ToListAsync();
+
+            if (masters == null || !masters.Any())
+                return NotFound(new { message = "No masters found for this subservice" });
+
+            return Ok(masters);
+        }
+
         // PUT: api/Services/{id}
         // 👉 Обновление данных сервиса
         [HttpPut("{id}")]
@@ -150,23 +181,22 @@ namespace beauti_salon_app.Controllers
         }
 
         // GET: api/Services/subservice/by-title?title=Sports Massage
-        [HttpGet("subservice/by-title")]
-        public async Task<ActionResult<SubService>> GetSubServiceByTitle([FromQuery] string title)
+        [HttpGet("subservice/id-by-title")]
+        public async Task<ActionResult<int>> GetSubServiceIdByTitle([FromQuery] string title)
         {
             if (string.IsNullOrWhiteSpace(title))
                 return BadRequest(new { message = "Title is required" });
 
-            var subService = await _context.SubServices
-                .Include(ss => ss.SubServiceMasters)
-                    .ThenInclude(sm => sm.Master)
-                .FirstOrDefaultAsync(ss => ss.Title.ToLower() == title.ToLower());
+            var subServiceId = await _context.SubServices
+                .Where(ss => ss.Title.ToLower() == title.ToLower())
+                .Select(ss => ss.Id)
+                .FirstOrDefaultAsync();
 
-            if (subService == null)
+            if (subServiceId == 0)
                 return NotFound(new { message = "SubService not found" });
 
-            return Ok(subService); 
+            return Ok(new { id = subServiceId });
         }
-
 
 
     }

@@ -53,7 +53,9 @@ console.log("categories",decodedCategory);
     const urlSubCategory = formatCategoryToUrl(subServiceTitle); 
      console.log('Записаться на услугу:', category, urlSubCategory);
    
-    navigate(`/services/${category}/${urlSubCategory}`);
+    navigate(`/services/${category}/${urlSubCategory}`, {
+      state: { categories, services }
+    });
  
   };
 
