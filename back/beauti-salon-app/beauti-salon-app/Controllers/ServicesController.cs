@@ -150,7 +150,7 @@ namespace beauti_salon_app.Controllers
         }
 
         // PUT: api/Services/{id}
-        // 👉 Обновление данных сервиса
+        //  Обновление данных сервиса
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateService(int id, Service updatedService)
         {
@@ -179,6 +179,39 @@ namespace beauti_salon_app.Controllers
 
             return NoContent(); 
         }
+
+
+        // PUT: api/Services/subservice/{id}
+        //  Обновление подуслуги по Id
+        [HttpPut("subservice/{id}")]
+        public async Task<IActionResult> UpdateSubService(int id, SubService updatedSubService)
+        {
+            if (id != updatedSubService.Id)
+                return BadRequest(new { message = "ID in URL does not match ID in body" });
+
+            var existingSubService = await _context.SubServices.FindAsync(id);
+            if (existingSubService == null)
+                return NotFound(new { message = "SubService not found" });
+
+            // Обновляем поля
+            existingSubService.Title = updatedSubService.Title;
+            existingSubService.Description = updatedSubService.Description;
+            existingSubService.ImageSrc = updatedSubService.ImageSrc;
+            existingSubService.Price = updatedSubService.Price;
+            existingSubService.ServiceId = updatedSubService.ServiceId;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return StatusCode(500, new { message = "Error updating the subservice" });
+            }
+
+            return NoContent(); // 204 — всё ок, без тела
+        }
+
 
         // GET: api/Services/subservice/by-title?title=Sports Massage
         [HttpGet("subservice/id-by-title")]

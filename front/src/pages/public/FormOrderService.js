@@ -10,6 +10,8 @@ import InfoMaster from '../../components/ui/info-master';
 import CardMaster from "../../components/ui/card-master"
 import ImgList from '../../components/ui/img-list';
 
+import '../../index.css'
+
 export default function FormOrderService() {
   const { category, subcategory, masterId } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
@@ -20,8 +22,8 @@ export default function FormOrderService() {
   console.log("masterId:", masterId);
   const navigate = useNavigate();
 
-
- const [clientName, setClientName] = useState("");
+  const [subServiceId, setSubServiceId] = useState(null);
+  const [clientName, setClientName] = useState("");
   const [contact, setContact] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
@@ -31,10 +33,41 @@ export default function FormOrderService() {
 
 
   const [loading, setLoading] = useState(true);
-  const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
 
   const [works, setWorks] = useState([]);
+  const [congratulationText, setCongratulationText] = useState("Вы успешно записались! Наш мастер в скорем времени с Вами свяжется для уточнения деталей.");
+
+
+
+  useEffect(() => {
+    if (!subcategory) return;
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+
+        const subServiceRes = await fetch(`/api/Services/subservice/id-by-title?title=${encodeURIComponent(decodedSubCategory)}`);
+        if (!subServiceRes.ok) throw new Error("SubService not found");
+        const subServiceData = await subServiceRes.json();
+        const subServiceId = subServiceData.id;
+        setSubServiceId(subServiceId);
+        console.log("SubService ID:", subServiceId);
+
+      } catch (err) {
+        console.error(err.message);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [subcategory]);
+
+
 
   useEffect(() => {
     if (!subcategory) return;
@@ -87,22 +120,29 @@ export default function FormOrderService() {
     };
 
     try {
-      const res = await fetch("/api/OrderServices", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(order),
-      });
+     // const res = await fetch("/api/OrderServices", {
+     //   method: "POST",
+    //    headers: { "Content-Type": "application/json" },
+    //    body: JSON.stringify(order),
+     // });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Ошибка при создании записи");
-      }
+     // if (!res.ok) {
+     //   const errorData = await res.json();
+     //   throw new Error(errorData.message || "Ошибка при создании записи");
+     // }
 
       setMessage("Запись успешно создана!");
       setClientName("");
       setContact("");
       setAppointmentDate("");
       setAppointmentTime("");
+      const congratulationEl = document.getElementById("congratulationText");
+      congratulationEl.classList.remove("non-display");
+
+     
+      setTimeout(() => {
+        congratulationEl.classList.add("non-display");
+      }, 10000); 
     } catch (err) {
       setMessage("❌ " + err.message);
     }
@@ -111,68 +151,60 @@ export default function FormOrderService() {
 
 
 
-  const handleMasterInfo = (masterId) => {
-
-
-
-    console.log('master id:', masterId);
-
-
-
-  };
-
   return (
     <div className='main'>
       <div className='main-container'>
         <Header />
-        <BunnerTitle title={master.name || 'Our Masrets'} />
+        <BunnerTitle title={master.name || 'Our Master'} />
 
 
         <div className="main-details">
-           <form onSubmit={handleSubmit}>
-        <div>
-          <label>Имя клиента:</label>
-          <input
-            type="text"
-            value={clientName}
-            onChange={(e) => setClientName(e.target.value)}
-            required
-          />
-        </div>
+          <form onSubmit={handleSubmit}>
+            <div className='input-container'>
+              <label>Имя клиента:</label>
+              <input
+                type="text"
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+                required
+              />
+            </div>
 
-        <div>
-          <label>Контакт:</label>
-          <input
-            type="text"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-          />
-        </div>
+          <div className='input-container'>
+              <label>Контакт:</label>
+              <input
+                type="text"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </div>
 
-        <div>
-          <label>Дата:</label>
-          <input
-            type="date"
-            value={appointmentDate}
-            onChange={(e) => setAppointmentDate(e.target.value)}
-            required
-          />
-        </div>
+            <div className='input-container'>
+              <label>Дата:</label>
+              <input
+                type="date"
+                value={appointmentDate}
+                onChange={(e) => setAppointmentDate(e.target.value)}
+                required
+              />
+            </div>
 
-        <div>
-          <label>Время:</label>
-          <input
-            type="time"
-            value={appointmentTime}
-            onChange={(e) => setAppointmentTime(e.target.value)}
-            required
-          />
-        </div>
+             <div className='input-container'>
+              <label>Время:</label>
+              <input
+                type="time"
+                value={appointmentTime}
+                onChange={(e) => setAppointmentTime(e.target.value)}
+                required
+              />
+            </div>
 
-        <button type="submit">Записаться</button>
-      </form>
+            <button type="submit" className='btn-gold '>Записаться</button>
+          </form>
         </div>
-        
+        <div className='text-wrapper non-display' id="congratulationText"> 
+        <div className='big-text'>{congratulationText}</div>
+        </div>
       </div>
     </div>
 

@@ -31,6 +31,7 @@ import ReviewsAdminPage from './pages/admin/ReviewsAdminPage';
 import StatisticsPage from './pages/admin/StatisticsPage';
 import ServiceCategoryDetailPage from './pages/public/ServiceCategoryDetailPage';
 import MasterDetailPage from './pages/public/MasterDetailPage';
+import FormOrderService from './pages/public/FormOrderService';
 function App() {
   return (
     <Router>
@@ -42,6 +43,7 @@ function App() {
         <Route path="/services/:category" element={<ServiceCategoryPage />} />
        <Route path="/services/:category/:subcategory" element={<ServiceCategoryDetailPage />} />
         <Route path="/services/:category/:subcategory/:masterId" element={<MasterDetailPage />} />
+        <Route path="/services/:category/:subcategory/:masterId/order-service" element={<FormOrderService />} />
 
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />

@@ -54,17 +54,17 @@ export default function MasterDetailPage() {
 
 
 
-useEffect(() => {
-  fetch(`/api/Masters/${master.id}/portfolio`)
-    .then(res => res.json())
-    .then(data => {
-      setWorks(data);
-      console.log("Найден works on detail page: ", data); 
-    })
-    .catch(err => {
-      console.error("Ошибка при получении портфолио:", err);
-    });
-}, []);
+  useEffect(() => {
+    fetch(`/api/Masters/${master.id}/portfolio`)
+      .then(res => res.json())
+      .then(data => {
+        setWorks(data);
+        console.log("Найден works on detail page: ", data);
+      })
+      .catch(err => {
+        console.error("Ошибка при получении портфолио:", err);
+      });
+  }, []);
 
 
 
@@ -79,8 +79,8 @@ useEffect(() => {
 
 
 
-  const handleMasterInfo = (masterId) => {
-
+  const handleForm = () => {
+    navigate(`/services/${category}/${subcategory}/${masterId}/order-service`);
 
 
     console.log('master id:', masterId);
@@ -104,7 +104,7 @@ useEffect(() => {
               photo={master.photo}
               name=""
               text="записаться"
-              onLearnMore={() => handleMasterInfo(master.id)}
+              onLearnMore={() => handleForm()}
             />
 
           </div>
@@ -112,7 +112,7 @@ useEffect(() => {
             <InfoMaster master={master} />
           </div>
         </div>
-        
+
       </div>
     </div>
 

@@ -11,7 +11,6 @@ const CardListSubService = ({ products, onLearnMore }) => {
                         imageSrc={product.imageSrc}
                         title={product.title}
                         price={product.price}
-                        description={product.description}
                         onLearnMore={() => onLearnMore(product.title)}
                     />
                 ))}

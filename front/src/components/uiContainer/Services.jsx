@@ -4,7 +4,7 @@ import { formatCategoryToUrl } from '../../utils/urlHelpers';
 import CardList from '../ui/card-list';
 import BtnList from '../ui/btn-list';
 
-const Services = ({ flag: isMain }) => {
+const Services = ({isMain }) => {
   const navigate = useNavigate();
 
   const [services, setServices] = useState([]);

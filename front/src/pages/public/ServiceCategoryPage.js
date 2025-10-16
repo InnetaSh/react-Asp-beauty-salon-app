@@ -16,19 +16,19 @@ export default function ServiceCategoryPage() {
   const decodedCategory = formatUrlToCategory(category);
 
   const { categories = [], services = [] } = location.state || {};
-  const [bunner, setBunner] = useState(services); 
+  const [bunner, setBunner] = useState(services);
 
 
 
-const subServiceTitles = services
-  ?.filter(service => service?.category?.toLowerCase() === decodedCategory?.toLowerCase())
-  ?.flatMap(service => service?.subServices || [])
-  ?.filter(Boolean) || [];
+  const subServiceTitles = services
+    ?.filter(service => service?.category?.toLowerCase() === decodedCategory?.toLowerCase())
+    ?.flatMap(service => service?.subServices || [])
+    ?.filter(Boolean) || [];
 
 
-console.log("SubService Titles:", subServiceTitles);
-console.log("services",services);
-console.log("categories",decodedCategory);
+  console.log("SubService Titles:", subServiceTitles);
+  console.log("services", services);
+  console.log("categories", decodedCategory);
 
   useEffect(() => {
     if (!services?.length) {
@@ -44,34 +44,34 @@ console.log("categories",decodedCategory);
 
   const handleBooking = () => {
     console.log('Записаться на услугу:', foundBanner);
- 
+
   };
 
-  const handleSubCategory= (subServiceTitle) => {
-   
+  const handleSubCategory = (subServiceTitle) => {
 
-    const urlSubCategory = formatCategoryToUrl(subServiceTitle); 
-     console.log('Записаться на услугу:', category, urlSubCategory);
-   
+
+    const urlSubCategory = formatCategoryToUrl(subServiceTitle);
+    console.log('Записаться на услугу:', category, urlSubCategory);
+
     navigate(`/services/${category}/${urlSubCategory}`, {
       state: { categories, services }
     });
- 
+
   };
 
   const handleCategoryClick = (clickedCategory) => {
     const urlCategory = formatCategoryToUrl(clickedCategory);
-    if (urlCategory === "all"){
-       navigate(`/services`, {
-      state: { categories, services }
-    });
-    }else{
-    
-    navigate(`/services/${urlCategory}`, {
-      state: { categories, services }
-    });
-    console.log('Learn more about product', clickedCategory);
-  }
+    if (urlCategory === "all") {
+      navigate(`/services`, {
+        state: { categories, services }
+      });
+    } else {
+
+      navigate(`/services/${urlCategory}`, {
+        state: { categories, services }
+      });
+      console.log('Learn more about product', clickedCategory);
+    }
   };
 
 
@@ -80,28 +80,35 @@ console.log("categories",decodedCategory);
       <div className='main-container'>
         <Header />
         <BunnerTitle title={foundBanner?.category || 'Услуга'} />
-        <div className="main-details">
-          <div className='left-container'>
-            {foundBanner && (
-              <>
-              <BunnerImg flag={true} bunners={[foundBanner]} />
-               <p>{foundBanner.description}</p>
-               <CardListSubService products={subServiceTitles} onLearnMore={handleSubCategory} />
-               </>
-            )}
-          </div>
-          <div className='right-container'>
-            <BtnGreyList categories={categories} onClick={handleCategoryClick} />
+       
+          <div className='main-details'>
+            <div className='left-container'>
+              {foundBanner && (
+                <>
+                  <BunnerImg flag={true} bunners={[foundBanner]} />
+                  <p>{foundBanner.description}</p>
 
-            {foundBanner && (
-              <div className="service-description">
-                <button onClick={handleBooking} className="book-btn">
-                  Записаться
-                </button>
-              </div>
-            )}
+                </>
+              )}
+            </div>
+            <div className='right-container'>
+              <BtnGreyList categories={categories} onClick={handleCategoryClick} />
+
+              {foundBanner && (
+                <div className="service-description">
+                  <button onClick={handleBooking} className="book-btn">
+                    Записаться
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+
+          <div className='subService-container'>
+            <CardListSubService products={subServiceTitles} onLearnMore={handleSubCategory} />
+          </div>
+
+       
       </div>
     </div>
   );
