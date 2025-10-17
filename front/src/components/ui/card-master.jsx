@@ -1,24 +1,13 @@
-import React from 'react';
-import ButtonDark from './Button-dark';
+import CardBase from './CardBase';
 
-const CardMaster = ({ imageSrc, name, onLearnMore,text="LEARN MORE" , customClass = "" }) => {
+const CardMaster = ({ name, ...rest }) => {
   return (
-      <div className="card">
-      <div className={`card-container ${customClass}`}>
-        <div className="card-image-wrapper">
-          <img src={imageSrc} alt={name} className="card-image" />
-
-        </div>
-      </div>
-
-      <div className="card-content">
-        <h3 className="card-title">{name}</h3>
-      
-        <ButtonDark onClick={onLearnMore} text={text} />
-      </div>
-    
-
-    </div>
+    <CardBase
+      {...rest}
+      title={name}
+      showPrice={false}
+      buttonText = "Записаться"
+    />
   );
 };
 

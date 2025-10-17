@@ -12,6 +12,8 @@ const CardListMaster = ({ masters, onLearnMore }) => {
                         name={master.name}
                        
                         onLearnMore={() => onLearnMore(master.id)}
+                         onDelete={() => console.log("Удалить")}
+                        onEdit={() => console.log("Редактировать")}
                     />
                 ))}
             </div>

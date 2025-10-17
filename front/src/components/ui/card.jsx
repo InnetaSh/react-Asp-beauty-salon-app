@@ -1,23 +1,11 @@
-import React from 'react';
-import ButtonDark from './Button-dark';
+import CardBase from './CardBase';
 
-const Card = ({ imageSrc, title, price, onLearnMore }) => {
+const Card = (props) => {
   return (
-    <div className="card">
-      <div className="card-container">
-        <div className="card-image-wrapper">
-          <img src={imageSrc} alt={title} className="card-image" />
-        </div>
-      </div>
-
-      <div className="card-content">
-        <h3 className="card-title">{title}</h3>
-        <p className="card-price">{price}</p>
-        <ButtonDark onClick={onLearnMore} text="LEARN MORE" />
-      </div>
-    
-
-    </div>
+    <CardBase
+      {...props}
+      showPrice={true}
+    />
   );
 };
 

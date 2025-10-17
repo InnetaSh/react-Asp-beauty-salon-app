@@ -9,7 +9,7 @@ import BunnerTitle from '../../components/ui/bunner-title';
 import BtnGreyList from '../../components/ui/btn-grey-list';
 import CardListMaster from "../../components/ui/card-list-master"
 
-export default function ServiceCategoryDetailPage() {
+export default function SubServiceDetailPage() {
   const { category, subcategory } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
 

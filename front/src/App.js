@@ -6,7 +6,7 @@ import ProtectedRoute from './components/ui/ProtectedRoute';
 // Публичные страницы
 import HomePage from './pages/public/HomePage';
 import ServicesPage from './pages/public/ServicesPage';
-import ServiceCategoryPage from './pages/public/ServiceCategoryPage';
+import ServiceCategoryPage from './pages/public/SubServicePage';
 import ProductsPage from './pages/public/ProductsPage';
 import ProductDetailsPage from './pages/public/ProductDetailsPage';
 import ReviewsPage from './pages/public/ReviewsPage';
@@ -29,7 +29,7 @@ import ScheduleAdminPage from './pages/admin/ScheduleAdminPage';
 import AppointmentsAdminPage from './pages/admin/AppointmentsAdminPage';
 import ReviewsAdminPage from './pages/admin/ReviewsAdminPage';
 import StatisticsPage from './pages/admin/StatisticsPage';
-import ServiceCategoryDetailPage from './pages/public/ServiceCategoryDetailPage';
+import SubServiceDetailPage from './pages/public/SubServiceDetailPage';
 import MasterDetailPage from './pages/public/MasterDetailPage';
 import FormOrderService from './pages/public/FormOrderService';
 function App() {
@@ -41,7 +41,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage isMain={false} />} />
         <Route path="/services/:category" element={<ServiceCategoryPage />} />
-       <Route path="/services/:category/:subcategory" element={<ServiceCategoryDetailPage />} />
+       <Route path="/services/:category/:subcategory" element={<SubServiceDetailPage />} />
         <Route path="/services/:category/:subcategory/:masterId" element={<MasterDetailPage />} />
         <Route path="/services/:category/:subcategory/:masterId/order-service" element={<FormOrderService />} />
 
