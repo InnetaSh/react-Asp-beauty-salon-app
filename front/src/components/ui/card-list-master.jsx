@@ -8,7 +8,7 @@ const CardListMaster = ({ masters, onLearnMore }) => {
                 {masters.map((master) => (
                     <CardMaster
                         key={master.id}
-                        photo={master.photo}
+                        imageSrc={master.imageSrc}
                         name={master.name}
                        
                         onLearnMore={() => onLearnMore(master.id)}

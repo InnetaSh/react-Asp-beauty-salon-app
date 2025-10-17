@@ -44,6 +44,38 @@ namespace beauti_salon_app.Controllers
             return Ok(master);
         }
 
+        // PUT: api/masters/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMaster(int id, Master updatedMaster)
+        {
+            if (id != updatedMaster.Id)
+                return BadRequest(new { message = "ID in URL does not match ID in body" });
+
+            var existingMaster = await _context.Masters.FindAsync(id);
+            if (existingMaster == null)
+                return NotFound(new { message = "Master not found" });
+
+            // Обновляем поля
+            existingMaster.Name = updatedMaster.Name;
+            existingMaster.Experience = updatedMaster.Experience;
+            existingMaster.Description = updatedMaster.Description;
+            existingMaster.ImageSrc = updatedMaster.ImageSrc;
+            existingMaster.Specialization = updatedMaster.Specialization;
+            existingMaster.TopMaster = updatedMaster.TopMaster;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return StatusCode(500, new { message = "Error updating master" });
+            }
+
+            return NoContent();
+        }
+
+
         // POST: api/masters
         [HttpPost]
         public async Task<ActionResult<Master>> CreateMaster(Master master)

@@ -22,7 +22,7 @@ export default function HomePage() {
                 <InfoWellcome />
                 <Services isMain={true}/>
                 <WeddingBunner />
-                <Teams/>
+                <Teams isMain={true}/>
                 <OurWorks/>
                 <Products />
             </div>

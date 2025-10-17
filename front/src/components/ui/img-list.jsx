@@ -2,9 +2,11 @@ import React from 'react';
 import Img from './img';
 
 const ImgList = ({ images }) => {
+    const containerClass = images.length === 1 ? 'img-list-container-first' : 'img-list-container';
+
     return (
         <div className="img-list">
-            <div className="img-list-container">
+            <div className={containerClass}>
                 {images.map((img) => (
                     <Img
                         key={img.id}
@@ -15,4 +17,5 @@ const ImgList = ({ images }) => {
         </div>
     );
 };
+
 export default ImgList;

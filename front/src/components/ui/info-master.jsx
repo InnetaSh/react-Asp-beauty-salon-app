@@ -4,7 +4,7 @@ const InfoMaster = ({ master }) => {
     return (
         <div className='title-container '>
             <div className='text-wrapper '>
-
+                
                 <div className='small-text'>specialization:
                     <div className='big-text'>
                         {master.specialization}
@@ -17,9 +17,9 @@ const InfoMaster = ({ master }) => {
                 </div>
             </div>
         </div>
-          
 
-        
+
+
     );
 };
 export default InfoMaster;

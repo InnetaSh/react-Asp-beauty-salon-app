@@ -3,11 +3,19 @@ import CardList from '../ui/card-list';
 
 const Teams = () => {
   const [teams, setTeam] = useState([]);
+const [selectedTeam, setSelectedTeam] = useState([]);
 
-  useEffect(() => {
-    fetch('/api/UI/team')
+  useEffect((isMain) => {
+    fetch('/api/Masters')
       .then(res => res.json())
-      .then(data => setTeam(data));
+      .then(data => {
+      // Если flag true — фильтруем, иначе берем все
+      const selectedTeam = isMain ? data.filter(item => item.topMaster === true) : data;
+      setTeam(selectedTeam);
+
+      
+      console.log('Загруженные masters:', selectedTeam);
+    })
   }, []);
 
   const handleLearnMore = (id) => {

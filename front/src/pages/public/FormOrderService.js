@@ -120,16 +120,16 @@ export default function FormOrderService() {
     };
 
     try {
-     // const res = await fetch("/api/OrderServices", {
-     //   method: "POST",
-    //    headers: { "Content-Type": "application/json" },
-    //    body: JSON.stringify(order),
-     // });
+      // const res = await fetch("/api/OrderServices", {
+      //   method: "POST",
+      //    headers: { "Content-Type": "application/json" },
+      //    body: JSON.stringify(order),
+      // });
 
-     // if (!res.ok) {
-     //   const errorData = await res.json();
-     //   throw new Error(errorData.message || "Ошибка при создании записи");
-     // }
+      // if (!res.ok) {
+      //   const errorData = await res.json();
+      //   throw new Error(errorData.message || "Ошибка при создании записи");
+      // }
 
       setMessage("Запись успешно создана!");
       setClientName("");
@@ -139,10 +139,10 @@ export default function FormOrderService() {
       const congratulationEl = document.getElementById("congratulationText");
       congratulationEl.classList.remove("non-display");
 
-     
+
       setTimeout(() => {
         congratulationEl.classList.add("non-display");
-      }, 10000); 
+      }, 10000);
     } catch (err) {
       setMessage("❌ " + err.message);
     }
@@ -170,7 +170,7 @@ export default function FormOrderService() {
               />
             </div>
 
-          <div className='input-container'>
+            <div className='input-container'>
               <label>Контакт:</label>
               <input
                 type="text"
@@ -189,7 +189,7 @@ export default function FormOrderService() {
               />
             </div>
 
-             <div className='input-container'>
+            <div className='input-container'>
               <label>Время:</label>
               <input
                 type="time"
@@ -202,8 +202,8 @@ export default function FormOrderService() {
             <button type="submit" className='btn-gold '>Записаться</button>
           </form>
         </div>
-        <div className='text-wrapper non-display' id="congratulationText"> 
-        <div className='big-text'>{congratulationText}</div>
+        <div className='text-wrapper non-display' id="congratulationText">
+          <div className='big-text'>{congratulationText}</div>
         </div>
       </div>
     </div>

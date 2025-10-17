@@ -146,8 +146,8 @@ display: none !important;
     display: flex;
     justify-content: center;
     width: 100%;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 300;
     font-style: italic;
     margin-bottom: 10px;
   }
@@ -668,6 +668,14 @@ position: relative;
   background-color: var(--color-dark);
   
 }
+.img-list-container-first{
+  width: 90%;
+  display: flex;
+  gap: 0;
+  background-color: var(--color-dark);
+  padding: 10px;
+  border: 0.5px solid var(--color-grey);border: 0.5px solid var(--color-grey);
+}
 .img-list-container {
   width: 90%;
   display: grid;
@@ -681,6 +689,7 @@ position: relative;
 /* >= 600px — 2 карточки */
 @media (min-width: 700px) {
   .img-list-container {
+     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 }

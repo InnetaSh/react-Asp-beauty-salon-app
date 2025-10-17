@@ -1,12 +1,12 @@
 import React from 'react';
 import ButtonDark from './Button-dark';
 
-const CardMaster = ({ photo, name, onLearnMore,text="LEARN MORE" , customClass = "" }) => {
+const CardMaster = ({ imageSrc, name, onLearnMore,text="LEARN MORE" , customClass = "" }) => {
   return (
       <div className="card">
       <div className={`card-container ${customClass}`}>
         <div className="card-image-wrapper">
-          <img src={`/${photo}`} alt={name} className="card-image" />
+          <img src={imageSrc} alt={name} className="card-image" />
 
         </div>
       </div>

@@ -55,7 +55,7 @@ export default function MasterDetailPage() {
 
 
   useEffect(() => {
-    fetch(`/api/Masters/${master.id}/portfolio`)
+    fetch(`/api/Masters/${masterId}/portfolio`)
       .then(res => res.json())
       .then(data => {
         setWorks(data);
@@ -64,7 +64,7 @@ export default function MasterDetailPage() {
       .catch(err => {
         console.error("Ошибка при получении портфолио:", err);
       });
-  }, []);
+  }, [master]);
 
 
 
@@ -101,8 +101,9 @@ export default function MasterDetailPage() {
             <CardMaster
               customClass="master-info"
               key={master.id}
-              photo={master.photo}
+              imageSrc={master.imageSrc}
               name=""
+              description={master.description}
               text="записаться"
               onLearnMore={() => handleForm()}
             />
@@ -112,7 +113,15 @@ export default function MasterDetailPage() {
             <InfoMaster master={master} />
           </div>
         </div>
+        <div className='text-wrapper'>
 
+
+          <div className='big-text'>About me: </div>
+            <div className='medium-text'>
+              {master.description}
+            </div>
+        </div>
+         <ImgList images={works} onLearnMore={handleLearnMore} />;
       </div>
     </div>
 
