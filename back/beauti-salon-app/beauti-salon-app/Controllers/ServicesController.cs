@@ -213,6 +213,42 @@ namespace beauti_salon_app.Controllers
         }
 
 
+        // DELETE: api/Services/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteService(int id)
+        {
+            var service = await _context.Services
+                .Include(s => s.SubServices) // включаем связанные подуслуги
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (service == null)
+                return NotFound(new { message = "Service not found" });
+
+            _context.Services.Remove(service);
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // 204
+        }
+
+
+        // DELETE: api/Services/subservice/{id}
+        [HttpDelete("subservice/{id}")]
+        public async Task<IActionResult> DeleteSubService(int id)
+        {
+            var subService = await _context.SubServices
+                .Include(ss => ss.SubServiceMasters) 
+                .FirstOrDefaultAsync(ss => ss.Id == id);
+
+            if (subService == null)
+                return NotFound(new { message = "SubService not found" });
+
+            _context.SubServices.Remove(subService);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
         // GET: api/Services/subservice/by-title?title=Sports Massage
         [HttpGet("subservice/id-by-title")]
         public async Task<ActionResult<int>> GetSubServiceIdByTitle([FromQuery] string title)

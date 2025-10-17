@@ -106,6 +106,7 @@ export default function MasterDetailPage() {
               description={master.description}
               text="записаться"
               onLearnMore={() => handleForm()}
+              buttonText = "записаться"
             />
 
           </div>

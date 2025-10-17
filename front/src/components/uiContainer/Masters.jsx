@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CardListMaster from '../ui/card-list-master';
 import EditMasterModal from '../modals/EditMasterModal';
 
-const Masters = ({ masters, category, subcategory, onRefresh }) => {
+const Masters = ({ masters, category, subcategory, onRefresh ,buttonText}) => {
   const navigate = useNavigate();
   const [editingMaster, setEditingMaster] = useState(null);
 
@@ -34,6 +34,7 @@ console.log("all masters", masters);
         onLearnMore={handleMasterInfo}
         onDelete={handleDelete}
         onEdit={handleEdit}
+        buttonText ={buttonText}
       />
 
       {editingMaster && (

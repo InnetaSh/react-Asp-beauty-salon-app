@@ -78,6 +78,7 @@ export default function SubServiceDetailPage() {
               category={category}
               subcategory={decodedSubCategory}
               onRefresh={handleRefresh}
+              buttonText='LERN MORE'
             />
         
 

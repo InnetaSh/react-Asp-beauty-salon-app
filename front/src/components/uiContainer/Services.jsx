@@ -44,7 +44,7 @@ const handleLearnMore = (category) => {
     if (!window.confirm("Удалить этот сервис?")) return;
 
     try {
-      const res = await fetch(`/api/services/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/Services/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error("Ошибка удаления");
 
       fetchServices(); 

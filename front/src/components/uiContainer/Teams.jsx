@@ -4,7 +4,7 @@ import EditMasterModal from "../modals/EditMasterModal"
 
 const Teams = (isMain) => {
   const [teams, setTeam] = useState([]);
-  const [editingTeam, setEditingTeam] = useState([]);
+  const [editingTeam, setEditingTeam] = useState(null);
 
 
   const fetchMasters = () => {
@@ -28,27 +28,6 @@ const Teams = (isMain) => {
   const handleLearnMore = (id) => {
     console.log('Learn more about teams', id);
 
-  };
-
-
-
-  const handleDelete = async (id) => {
-    if (!window.confirm("Удалить этот сервис?")) return;
-
-    try {
-      const res = await fetch(`/api/services/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error("Ошибка удаления");
-
-      fetchMasters();
-    } catch (err) {
-      console.error("Ошибка при удалении:", err);
-    }
-  };
-
-  const handleEdit = (master) => {
-    setEditingTeam(master);
-
-    console.log("Редактирование:", master);
   };
 
 

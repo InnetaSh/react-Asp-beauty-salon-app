@@ -89,6 +89,23 @@ namespace beauti_salon_app.Controllers
             return CreatedAtAction(nameof(GetMasterById), new { id = master.Id }, master);
         }
 
+
+        // DELETE: api/masters/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMaster(int id)
+        {
+            var master = await _context.Masters.FindAsync(id);
+            if (master == null)
+                return NotFound(new { message = "Master not found" });
+
+            _context.Masters.Remove(master);
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // Стандартный ответ на успешное удаление
+        }
+
+
+
         // POST: api/masters/{masterId}/portfolio
         [HttpPost("{masterId}/portfolio")]
         public async Task<ActionResult<PortfolioItem>> AddPortfolioItem(int masterId, PortfolioItem portfolioItem)
