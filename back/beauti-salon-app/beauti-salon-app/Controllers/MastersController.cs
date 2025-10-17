@@ -72,7 +72,7 @@ namespace beauti_salon_app.Controllers
                 return StatusCode(500, new { message = "Error updating master" });
             }
 
-            return NoContent();
+            return Ok();
         }
 
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import CardMaster from './card-master';
 
-const CardListMaster = ({ masters, onLearnMore }) => {
+const CardListMaster = ({ masters, onLearnMore,onDelete,
+  onEdit, }) => {
     return (
         <div className="card-list">
             <div className="card-list-container">
@@ -12,8 +13,8 @@ const CardListMaster = ({ masters, onLearnMore }) => {
                         name={master.name}
                        
                         onLearnMore={() => onLearnMore(master.id)}
-                         onDelete={() => console.log("Удалить")}
-                        onEdit={() => console.log("Редактировать")}
+                        onDelete={() => onDelete(master.id)}
+                        onEdit={() => onEdit(master)}
                     />
                 ))}
             </div>

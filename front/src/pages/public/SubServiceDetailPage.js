@@ -1,51 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from 'react-router-dom';
 import { formatUrlToCategory } from '../../utils/urlHelpers';
-import { formatCategoryToUrl } from '../../utils/urlHelpers';
-import { useNavigate } from 'react-router-dom';
 import Header from '../../components/uiContainer/Header';
-import BunnerImg from '../../components/ui/bunner-img';
 import BunnerTitle from '../../components/ui/bunner-title';
-import BtnGreyList from '../../components/ui/btn-grey-list';
-import CardListMaster from "../../components/ui/card-list-master"
+import Masters from "../../components/uiContainer/Masters";
 
 export default function SubServiceDetailPage() {
   const { category, subcategory } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
-
-
-  console.log("Category:", category);
-  console.log("Subcategory:", decodedSubCategory);
   const navigate = useNavigate();
 
   const [subServiceId, setSubServiceId] = useState(null);
+  const [description, setDescription] = useState('');
   const [masters, setMasters] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
 
-
+  // Получаем ID подуслуги и мастеров
   useEffect(() => {
-    if (!subcategory) return;
-
     const fetchData = async () => {
       try {
         setLoading(true);
-        setError(null);
 
+        const res = await fetch(`/api/Services/subservice/id-by-title?title=${encodeURIComponent(decodedSubCategory)}`);
+        if (!res.ok) throw new Error("SubService not found");
 
-        const subServiceRes = await fetch(`/api/Services/subservice/id-by-title?title=${encodeURIComponent(decodedSubCategory)}`);
-        if (!subServiceRes.ok) throw new Error("SubService not found");
-        const subServiceData = await subServiceRes.json();
-        const subServiceId = subServiceData.id;
-        setSubServiceId(subServiceId);
-        console.log("SubService ID:", subServiceId);
+        const subServiceData = await res.json();
+        setSubServiceId(subServiceData.id);
 
-        const mastersRes = await fetch(`/api/Services/subservice/${subServiceId}/masters/full`);
+        // Описание
+        const descriptionRes = await fetch(`/api/Services/subservice/${subServiceData.id}`);
+        if (!descriptionRes.ok) throw new Error("SubService description not found");
+        const descriptionData = await descriptionRes.json();
+        setDescription(descriptionData.description);
+
+        // Мастера
+        const mastersRes = await fetch(`/api/Services/subservice/${subServiceData.id}/masters/full`);
         if (!mastersRes.ok) throw new Error("Masters not found");
         const mastersData = await mastersRes.json();
         setMasters(mastersData);
-        console.log("Masters:", mastersData);
+
       } catch (err) {
         console.error(err.message);
         setError(err.message);
@@ -54,66 +48,40 @@ export default function SubServiceDetailPage() {
       }
     };
 
-    fetchData();
+    if (subcategory) {
+      fetchData();
+    }
   }, [subcategory]);
 
-
-useEffect(() => {
-  const fetchSubServiceDescription = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const subServiceRes = await fetch(`/api/Services/subservice/${subServiceId}`);
-      if (!subServiceRes.ok) throw new Error("SubService not found");
-
-      const subServiceData = await subServiceRes.json();
-      const subServiceDescription = subServiceData.description;
-      setDescription(subServiceDescription);
-      console.log("SubService description:", subServiceDescription);
-    } catch (err) {
-      console.error(err.message);
-      setError(err.message);
-    } finally {
-      setLoading(false);
+  const handleRefresh = () => {
+    // повторно загружает мастеров после редактирования/удаления
+    if (subServiceId) {
+      fetch(`/api/Services/subservice/${subServiceId}/masters/full`)
+        .then(res => res.json())
+        .then(setMasters)
+        .catch(err => console.error("Ошибка при обновлении мастеров:", err));
     }
-  };
-
-  if (subServiceId) {
-    fetchSubServiceDescription();
-  }
-}, [subServiceId]);
-
-
-  console.log("Найден ID подуслуги: ", subServiceId);
-
-
-
-
-  const handleMasterInfo = (id) => {
-
-
-navigate(`/services/${category}/${subcategory}/${id}`);
-    console.log('master id:', id);
-
-
-
   };
 
   return (
     <div className='main'>
       <div className='main-container'>
         <Header />
-        <BunnerTitle title={subcategory || 'Our Masrets'} />
+        <BunnerTitle title={decodedSubCategory || 'Our Masters'} />
 
         <p className='text-description'>{description}</p>
-        <div className="main-details">
-          <div className='left-container'>
-            <CardListMaster masters={masters} onLearnMore={handleMasterInfo} />
-          </div>
-          <div className='right-container'>
 
-          </div>
+        <div className="main-details">
+          
+            <Masters
+              masters={masters}
+              category={category}
+              subcategory={decodedSubCategory}
+              onRefresh={handleRefresh}
+            />
+        
+
+        
         </div>
       </div>
     </div>

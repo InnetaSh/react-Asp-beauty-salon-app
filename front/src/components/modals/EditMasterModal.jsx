@@ -18,12 +18,14 @@ const EditMasterModal = ({ master, onClose, onSave }) => {
       body: JSON.stringify(formData)
     })
       .then(res => {
-        if (!res.ok) throw new Error('Ошибка обновления');
-        return res.json();
+         
+        if (!res.ok)  console.log("ошибка");;
+        
       })
       .then(() => {
-        onSave(); // обновить список
-        onClose(); // закрыть модалку
+      
+        onSave(); 
+        onClose(); 
       })
       .catch(console.error);
   };
