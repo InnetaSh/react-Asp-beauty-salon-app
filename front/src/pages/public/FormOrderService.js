@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 import { formatUrlToCategory } from '../../utils/urlHelpers';
-import { formatCategoryToUrl } from '../../utils/urlHelpers';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/uiContainer/Header';
-import BunnerImg from '../../components/ui/bunner-img';
 import BunnerTitle from '../../components/ui/bunner-title';
-import InfoMaster from '../../components/ui/info-master';
-import CardMaster from "../../components/ui/card-master"
-import ImgList from '../../components/ui/img-list';
 
 import '../../index.css'
 
 export default function FormOrderService() {
+  const navigate = useNavigate();
+  
+
   const { category, subcategory, masterId } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
 
@@ -20,7 +18,6 @@ export default function FormOrderService() {
   console.log("Category:", category);
   console.log("Subcategory:", decodedSubCategory);
   console.log("masterId:", masterId);
-  const navigate = useNavigate();
 
   const [subServiceId, setSubServiceId] = useState(null);
   const [clientName, setClientName] = useState("");
@@ -142,6 +139,9 @@ export default function FormOrderService() {
 
       setTimeout(() => {
         congratulationEl.classList.add("non-display");
+      }, 8000);
+        setTimeout(() => {
+     navigate(`/`);
       }, 10000);
     } catch (err) {
       setMessage("❌ " + err.message);
@@ -156,7 +156,9 @@ export default function FormOrderService() {
       <div className='main-container'>
         <Header />
         <BunnerTitle title={master.name || 'Our Master'} />
-
+        <div className='text-wrapper non-display' id="congratulationText">
+          <div className='big-text'>{congratulationText}</div>
+        </div>
 
         <div className="main-details">
           <form onSubmit={handleSubmit}>
@@ -202,9 +204,7 @@ export default function FormOrderService() {
             <button type="submit" className='btn-gold '>Записаться</button>
           </form>
         </div>
-        <div className='text-wrapper non-display' id="congratulationText">
-          <div className='big-text'>{congratulationText}</div>
-        </div>
+
       </div>
     </div>
 

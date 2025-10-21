@@ -8,7 +8,6 @@ import BunnerImg from '../../components/ui/bunner-img';
 import BunnerTitle from '../../components/ui/bunner-title';
 import BtnGreyList from '../../components/ui/btn-grey-list';
 import SubServices from '../../components/uiContainer/SubServices'
-import CardList from "../../components/ui/card-list"
 
 export default function SubServicePage() {
   const { category } = useParams();

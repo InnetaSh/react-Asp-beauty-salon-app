@@ -35,7 +35,7 @@ import FormOrderService from './pages/public/FormOrderService';
 function App() {
   return (
     <Router>
-      <Navbar />
+     
       <Routes>
         {/* Публичные маршруты */}
         <Route path="/" element={<HomePage />} />

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 import { formatUrlToCategory } from '../../utils/urlHelpers';
-import { formatCategoryToUrl } from '../../utils/urlHelpers';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/uiContainer/Header';
-import BunnerImg from '../../components/ui/bunner-img';
 import BunnerTitle from '../../components/ui/bunner-title';
 import InfoMaster from '../../components/ui/info-master';
 import CardMaster from "../../components/ui/card-master"
-import ImgList from '../../components/ui/img-list';
 import Portfolio from '../../components/uiContainer/Portfolio'
 
 export default function MasterDetailPage() {

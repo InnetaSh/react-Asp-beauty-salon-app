@@ -16,7 +16,7 @@ export default function SubServiceDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Получаем ID подуслуги и мастеров
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,13 +28,13 @@ export default function SubServiceDetailPage() {
         const subServiceData = await res.json();
         setSubServiceId(subServiceData.id);
 
-        // Описание
+
         const descriptionRes = await fetch(`/api/Services/subservice/${subServiceData.id}`);
         if (!descriptionRes.ok) throw new Error("SubService description not found");
         const descriptionData = await descriptionRes.json();
         setDescription(descriptionData.description);
 
-        // Мастера
+
         const mastersRes = await fetch(`/api/Services/subservice/${subServiceData.id}/masters/full`);
         if (!mastersRes.ok) throw new Error("Masters not found");
         const mastersData = await mastersRes.json();
@@ -54,7 +54,6 @@ export default function SubServiceDetailPage() {
   }, [subcategory]);
 
   const handleRefresh = () => {
-    // повторно загружает мастеров после редактирования/удаления
     if (subServiceId) {
       fetch(`/api/Services/subservice/${subServiceId}/masters/full`)
         .then(res => res.json())

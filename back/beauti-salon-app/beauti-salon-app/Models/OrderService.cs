@@ -16,6 +16,8 @@ namespace beauti_salon_app.Models
 
         public TimeOnly AppointmentTime { get; set; }
 
+        public string Price { get; set; }
+
         public int MasterId { get; set; }
         [JsonIgnore]
         public Master? Master { get; set; }
