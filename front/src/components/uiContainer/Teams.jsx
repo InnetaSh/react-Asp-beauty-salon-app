@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CardList from '../ui/card-list';
 import EditMasterModal from "../modals/EditMasterModal"
+import BunnerTitle from "../ui/bunner-title"
 
 const Teams = (isMain) => {
   const [teams, setTeam] = useState([]);
@@ -33,13 +34,9 @@ const Teams = (isMain) => {
 
   return (
     <div>
-      <div className='title-container'>
-        <h3 className='title'>Our Team</h3>
-        <div className='bottom-line'></div>
-      </div>
+      <BunnerTitle title = "Our Team"/>
       <CardList products={teams} onLearnMore={handleLearnMore} />;
 
-    
       {editingTeam && (
         <EditMasterModal
           service={editingTeam}

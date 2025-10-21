@@ -1,6 +1,7 @@
 import React from 'react';
 import ButtonDark from './Button-dark';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import CardActionsBtn from "../ui/card-actions-btn"
 
 const CardBase = ({
   imageSrc,
@@ -18,18 +19,7 @@ const CardBase = ({
     <div className="card">
       <div className={`card-container ${customClass}`}>
         {showActions && (
-          <div className="card-actions">
-            {onEdit && (
-              <button onClick={onEdit} className="card-action-button edit">
-                <FaEdit />
-              </button>
-            )}
-            {onDelete && (
-              <button onClick={onDelete} className="card-action-button delete">
-                <FaTrashAlt />
-              </button>
-            )}
-          </div>
+          <CardActionsBtn onEdit={onEdit} onDelete={onDelete}/>
         )}
 
         <div className="card-image-wrapper">

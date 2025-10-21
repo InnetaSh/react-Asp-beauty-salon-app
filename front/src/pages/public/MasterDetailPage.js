@@ -9,6 +9,7 @@ import BunnerTitle from '../../components/ui/bunner-title';
 import InfoMaster from '../../components/ui/info-master';
 import CardMaster from "../../components/ui/card-master"
 import ImgList from '../../components/ui/img-list';
+import Portfolio from '../../components/uiContainer/Portfolio'
 
 export default function MasterDetailPage() {
   const { category, subcategory, masterId } = useParams();
@@ -54,26 +55,7 @@ export default function MasterDetailPage() {
 
 
 
-  useEffect(() => {
-    fetch(`/api/Masters/${masterId}/portfolio`)
-      .then(res => res.json())
-      .then(data => {
-        setWorks(data);
-        console.log("Найден works on detail page: ", data);
-      })
-      .catch(err => {
-        console.error("Ошибка при получении портфолио:", err);
-      });
-  }, [master]);
-
-
-
-  console.log(works);
-  const handleLearnMore = () => {
-    console.log('Learn more about product');
-
-  };
-
+ 
 
 
 
@@ -122,7 +104,8 @@ export default function MasterDetailPage() {
               {master.description}
             </div>
         </div>
-         <ImgList images={works} onLearnMore={handleLearnMore} />;
+        <Portfolio masterId = {masterId}/>
+        
       </div>
     </div>
 

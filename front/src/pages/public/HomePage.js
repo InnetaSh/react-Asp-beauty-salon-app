@@ -9,6 +9,7 @@ import OurWorks from '../../components/uiContainer/OurWorks'
 import WeddingBunner from '../../components/uiContainer/WeddingBunner'
 import Services from '../../components/uiContainer/Services'
 import InfoWellcome from '../../components/uiContainer/InfoWellcome'
+import Portfolio from '../../components/uiContainer/Portfolio'
 
 import '../../index.css'
 
@@ -23,7 +24,7 @@ export default function HomePage() {
                 <Services isMain={true}/>
                 <WeddingBunner />
                 <Teams isMain={true}/>
-                <OurWorks/>
+                <Portfolio isMain={true}/>
                 <Products />
             </div>
         </div>

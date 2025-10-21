@@ -18,14 +18,14 @@ const EditMasterModal = ({ master, onClose, onSave }) => {
       body: JSON.stringify(formData)
     })
       .then(res => {
-         
-        if (!res.ok)  console.log("ошибка");;
-        
+
+        if (!res.ok) console.log("ошибка");;
+
       })
       .then(() => {
-      
-        onSave(); 
-        onClose(); 
+
+        onSave();
+        onClose();
       })
       .catch(console.error);
   };
@@ -40,6 +40,21 @@ const EditMasterModal = ({ master, onClose, onSave }) => {
           <input name="specialization" value={formData.specialization} onChange={handleChange} placeholder="Специализация" />
           <input name="imageSrc" value={formData.imageSrc} onChange={handleChange} placeholder="URL изображения" />
           <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Описание" />
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              name="topMaster"
+              checked={formData.topMaster || false}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  topMaster: e.target.checked,
+                }))
+              }
+            />
+            Топ-мастер
+          </label>
+
           <div className="modal-buttons">
             <button type="submit">Сохранить</button>
             <button type="button" onClick={onClose}>Отмена</button>

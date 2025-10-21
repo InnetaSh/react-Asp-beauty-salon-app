@@ -150,5 +150,52 @@ namespace beauti_salon_app.Controllers
             return Ok(portfolioItems);
         }
 
+        // PUT: api/masters/portfolio/{id}
+   
+        [HttpPut("portfolio/{id}")]
+        public async Task<IActionResult> UpdatePortfolioItem(int id, [FromBody] PortfolioItem updatedItem)
+
+        {
+            if (id != updatedItem.Id)
+                return BadRequest(new { message = "ID in URL does not match ID in body" });
+
+            var existingItem = await _context.PortfolioItems.FindAsync(id);
+            if (existingItem == null)
+                return NotFound(new { message = "Portfolio item not found" });
+
+
+            existingItem.ImageSrc = updatedItem.ImageSrc;
+            existingItem.TopPhoto = updatedItem.TopPhoto;
+            existingItem.MasterId = updatedItem.MasterId;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return StatusCode(500, new { message = "Error updating portfolio item" });
+            }
+
+            return NoContent(); 
+        }
+
+
+        // DELETE: api/masters/portfolio/{id}
+
+        [HttpDelete("portfolio/{id}")]
+        public async Task<IActionResult> DeletePortfolioItem(int id)
+        {
+            var item = await _context.PortfolioItems.FindAsync(id);
+            if (item == null)
+                return NotFound(new { message = "Portfolio item not found" });
+
+            _context.PortfolioItems.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // 204
+        }
+
+
     }
 }

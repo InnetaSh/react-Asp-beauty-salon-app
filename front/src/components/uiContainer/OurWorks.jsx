@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ImgList from '../ui/img-list';
 
-const OurWorks = () => {
+const OurWorks = (isMain = false) => {
   const [works, setWorks] = useState([]);
 
   useEffect(() => {
-    fetch('/api/UI/ourWork')
+    fetch('/api/Masters/portfolio')
       .then(res => res.json())
-      .then(data => setWorks(data));
+      .then(data => 
+        { const portfolio = isMain ? data.filter(item => item.topPortfolio) : data;
+
+          setWorks(portfolio)
+  });
   }, []);
 console.log(works);
   const handleLearnMore = (id) => {
