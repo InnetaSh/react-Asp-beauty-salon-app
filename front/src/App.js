@@ -10,7 +10,7 @@ import ServiceCategoryPage from './pages/public/SubServicePage';
 import ProductsPage from './pages/public/ProductsPage';
 import ProductDetailsPage from './pages/public/ProductDetailsPage';
 import ReviewsPage from './pages/public/ReviewsPage';
-import LoginPage from './pages/public/LoginPage';
+import AuthForm from './pages/public/AuthForm';
 import RegisterPage from './pages/public/RegisterPage';
 
 // Пользовательские страницы
@@ -48,7 +48,7 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />
         <Route path="/reviews" element={<ReviewsPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<AuthForm />} />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Пользовательские маршруты (требуется авторизация) */}
