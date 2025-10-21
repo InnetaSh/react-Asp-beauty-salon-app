@@ -30,11 +30,27 @@ const EditServiceModal = ({ service, onClose, onSave }) => {
       <div className="modal">
         <h2>Редактировать сервис</h2>
         <form onSubmit={handleSubmit}>
+            <div className='modal-input-container'>
+            <label>title:</label>
           <input name="title" value={formData.title} onChange={handleChange} placeholder="Название" required />
+         </div>
+          <div className='modal-input-container'>
+            <label>category:</label>
           <input name="category" value={formData.category} onChange={handleChange} placeholder="Категория" />
+         </div>
+          <div className='modal-input-container'>
+            <label>price:</label>
           <input name="price" value={formData.price} onChange={handleChange} placeholder="Цена" />
+          </div>
+          <div className='modal-input-container'>
+            <label>imageSrc:</label>
           <input name="imageSrc" value={formData.imageSrc} onChange={handleChange} placeholder="URL изображения" />
+          </div>
+          <div className='modal-input-container'>
+            <label>description:</label>
           <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Описание" />
+          </div>
+      
           <div className="modal-buttons">
             <button type="submit">Сохранить</button>
             <button type="button" onClick={onClose}>Отмена</button>
