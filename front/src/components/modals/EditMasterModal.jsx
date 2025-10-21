@@ -35,13 +35,32 @@ const EditMasterModal = ({ master, onClose, onSave }) => {
       <div className="modal">
         <h2>Редактировать мастера</h2>
         <form onSubmit={handleSubmit}>
-          <input name="name" value={formData.name} onChange={handleChange} placeholder="Имя" required />
-          <input name="experience" value={formData.experience} onChange={handleChange} placeholder="Опыт" />
-          <input name="specialization" value={formData.specialization} onChange={handleChange} placeholder="Специализация" />
-          <input name="imageSrc" value={formData.imageSrc} onChange={handleChange} placeholder="URL изображения" />
-          <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Описание" />
-          <label className="checkbox-label">
+          <div className='modal-input-container'>
+            <label>name:</label>
+            <input name="name" value={formData.name} onChange={handleChange} placeholder="Имя" required />
+          </div>
+          <div className='modal-input-container'>
+            <label>experience:</label>
+            <input name="experience" value={formData.experience} onChange={handleChange} placeholder="Опыт" />
+          </div>
+          <div className='modal-input-container'>
+            <label>specialization:</label>
+            <input name="specialization" value={formData.specialization} onChange={handleChange} placeholder="Специализация" />
+          </div>
+          <div className='modal-input-container'>
+            <label>photo:</label>
+            <input name="imageSrc" value={formData.imageSrc} onChange={handleChange} placeholder="URL изображения" />
+          </div>
+          <div className='modal-input-container'>
+            <label>description:</label>
+            <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Описание" />
+          </div>
+          <div className='modal-checkbox-container'>
+            <label className="modal-checkbox-label">
+              Топ-мастер
+            </label>
             <input
+              className='modal-checkbox-input'
               type="checkbox"
               name="topMaster"
               checked={formData.topMaster || false}
@@ -52,8 +71,7 @@ const EditMasterModal = ({ master, onClose, onSave }) => {
                 }))
               }
             />
-            Топ-мастер
-          </label>
+          </div>
 
           <div className="modal-buttons">
             <button type="submit">Сохранить</button>
