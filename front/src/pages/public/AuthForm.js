@@ -21,138 +21,133 @@ const menu_list = [
 const AuthForm = ({ setToken }) => {
   const navigate = useNavigate();
 
- const [nameConpany, setNameCompany] = useState("");
+  const [nameConpany, setNameCompany] = useState("");
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirnPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [lastLogin, setLastLogin] = useState("");
   const [roleName, setRoleName] = useState("user");
 
-  const [activeForm, setActiveForm] = useState('login');
-  const [activeLink, setActiveLink] = useState('');
+
 
   const [error, setError] = useState("");
   const [errorName, setErrorName] = useState("");
   const [errorPassword, setErrorPassword] = useState("")
+  const [shrink, setShrink] = useState(false);
 
   const [isRegister, setIsRegister] = useState(false);
 
 
 
   const handleLogin = async () => {
-  if (username === "") {
-    setErrorName("ім'я не повинно бути порожнім");
-    return;
-  }
-  if (password === "") {
-    setErrorPassword("пароль не повиннен бути порожнім");
-    return;
-  }
-  setErrorName("");
-  setErrorPassword("");
-  setError("");
-
-  try {
-    const response = await fetch("http://localhost:5238/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: username,
-        password: password,
-      }),
-    });
-
-    if (!response.ok) {
-      if (response.status === 401) {
-        setError("Невірний логін або пароль");
-      } else {
-        setError("Сталася помилка. Спробуйте знову.");
-      }
+    if (username === "") {
+      setErrorName("ім'я не повинно бути порожнім");
       return;
     }
+    if (password === "") {
+      setErrorPassword("пароль не повиннен бути порожнім");
+      return;
+    }
+    setErrorName("");
+    setErrorPassword("");
+    setError("");
 
-    const data = await response.json();
+    try {
+      const response = await fetch("http://localhost:5266/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: username,
+          password: password,
+        }),
+      });
 
-    const token = data.token;
-    const role = data.role;
+      if (!response.ok) {
+        const errorData = await response.text();
+        setErrorName(errorData);
+        return;
+      }
 
-    localStorage.setItem("token", token);
-    setToken(token);
-    setRoleName(role);
+      const data = await response.json();
 
-    console.log(data);
+      const token = data.token;
+      const role = data.role;
 
-    if (role === "user") {
-      navigate("/user-dashboard");
-    } else {
+      localStorage.setItem("token", token);
+      setToken(token);
+      setRoleName(role);
+
+      console.log(data);
+
+      
+        navigate("/");
+      
+
+    } catch (error) {
+      console.error("Ошибка регистрации", error);
+      setErrorName("Сталася помилка. Спробуйте знову.");
+    }
+  };
+
+  const handleRegister = async () => {
+    if (username === "") {
+      setError("Невірний логін або пароль");
+      return;
+    }
+    if (password === "") {
+      setError("Сталася помилка. Спробуйте знову.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Пароль должен совпадать.");
+      return;
+    }
+    setErrorName("");
+    setErrorPassword("");
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:5266/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName: username,
+          password: password,
+          email: email,
+          phoneNumber: phoneNumber,
+          roleName: roleName,
+        }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setError("Користувач з таким логіном вже існує, придумайте інше.");
+        } else {
+          setError("Сталася помилка. Спробуйте ще раз.");
+        }
+        return;
+      }
+
+      const data = await response.json();
+
+      const token = data.token;
+      localStorage.setItem("token", token);
+      setToken(token);
+
       navigate("/");
+
+    } catch (error) {
+      console.error("Помилка реєстрації", error);
+      setError("Сталася помилка. Спробуйте ще раз.");
     }
-
-  } catch (error) {
-    console.error("Ошибка регистрации", error);
-    setError("Сталася помилка. Спробуйте знову.");
-  }
-};
-
-const handleRegister = async () => {
-  if (username === "") {
-    setError("Невірний логін або пароль");
-    return;
-  }
-  if (password === "") {
-    setError("Сталася помилка. Спробуйте знову.");
-    return;
-  }
-  if (password !== confirmPassword) {
-    setError("Пароль должен совпадать.");
-    return;
-  }
-  setErrorName("");
-  setErrorPassword("");
-  setError("");
-
-  try {
-    const response = await fetch("http://localhost:5238/api/auth/register/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: username,
-        password: password,
-        email: email,               // поправил — вместо error должен быть email
-        phoneNumber: phoneNumber,
-        roleName: roleName,
-      }),
-    });
-
-    if (!response.ok) {
-      if (response.status === 401) {
-        setError("Користувач з таким логіном вже існує, придумайте інше.");
-      } else {
-        setError("Сталася помилка. Спробуйте ще раз.");
-      }
-      return;
-    }
-
-    const data = await response.json();
-
-    const token = data.token;
-    localStorage.setItem("token", token);
-    setToken(token);
-
-    navigate("/");
-
-  } catch (error) {
-    console.error("Помилка реєстрації", error);
-    setError("Сталася помилка. Спробуйте ще раз.");
-  }
-};
+  };
 
 
 
@@ -173,17 +168,29 @@ const handleRegister = async () => {
       });
   }, []);
 
-      // --------------------------------------------
-  const handleSubmit = async(e) => {
+  // --------------------------------------------
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(isRegister){
+    if (isRegister) {
       await handleRegister();
-    }else{
+    } else {
       await handleLogin();
     }
-    // ----------------------------
+
     console.log('Submit');
   };
+
+
+    
+    // ----------------------------
+  useEffect(() => {
+  if (errorName !== "") {
+    setShrink(false); 
+    const timer = setTimeout(() => setShrink(true), 100); 
+    return () => clearTimeout(timer);
+  }
+}, [errorName]); 
+
 
   return (
     <div className="main">
@@ -228,6 +235,18 @@ const handleRegister = async () => {
 
               {isRegister && (
                 <>
+                  <input
+                    type="password"
+                    name="userPassword"
+                    placeholder="confirmPassword"
+                    className="login-form-inputBlock"
+                    style={{
+                      background: `#eae7e7 url(${icon}) no-repeat`,
+                      backgroundPosition: "10px -53px",
+                      paddingLeft: "40px"
+                    }}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
 
                   <input
                     type="text"
@@ -260,7 +279,7 @@ const handleRegister = async () => {
                   />
 
 
-                  <div id="genderField" className="login-form-containerRadioBtn">
+                  <div id="roleField" className="login-form-containerRadioBtn">
                     <label className='login-form-label'>
                       <input
                         type="radio"
@@ -269,7 +288,7 @@ const handleRegister = async () => {
                         value="admin"
                         checked={roleName === 'admin'}
                         onChange={(e) => setRoleName(e.target.value)}
-                        defaultChecked
+                    
                       />
                       admin
                     </label>
@@ -295,15 +314,7 @@ const handleRegister = async () => {
                       />
                       client
                     </label>
-                    {error != "" && (
-                      <p>{error}</p>
-                    )}
-                    {errorName != "" && (
-                      <p>{errorName}</p>
-                    )}
-                    {errorPassword != "" && (
-                      <p>{errorPassword}</p>
-                    )}
+                    
                   </div>
                 </>
               )}
@@ -321,7 +332,17 @@ const handleRegister = async () => {
                 </a>
               </div>
             </form>
-
+ {errorName !== "" && (
+      <p className={`error-message ${shrink ? "shrink" : ""}`}>
+        {error != "" && (
+                      <p>{error}</p>
+                    )}
+                    {errorPassword != "" && (
+                      <p>{errorPassword}</p>
+                    )}
+        {errorName}
+      </p>
+    )}
           </div>
         </div>
       </div>

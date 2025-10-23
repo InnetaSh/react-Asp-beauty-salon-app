@@ -1,5 +1,6 @@
 //Главная, баннер, топ-услуги, акции
 // 
+import React, { useEffect, useState } from 'react';
 import MainHeader from '../../components/uiContainer/MainHeader'
 import Products from '../../components/uiContainer/Products'
 import Teams from '../../components/uiContainer/Teams'
@@ -14,23 +15,41 @@ export default function HomePage({ token, setToken }) {
 
     const [username, setUsername] = useState("");
     const [roleName, setRoleName] = useState("client");
+    const [error, setError] = useState("");
+    console.log("token",token);
+    console.log("Username",username);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:5238/api/protected", {
-                    headers: { Authorization: `Bearer ${token}` },
+                const response = await fetch("http://localhost:5266/api/protected", {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
-                setUsername(response.data.Username);
-                setRoleName(response.data.roleName);
 
-                console.log(response.data.Username, response.data.RoleName);
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        setError("Ошибка авторизации (401)");
+                    } else {
+                        setError("Произошла ошибка при загрузке данных");
+                    }
+                    return;
+                }
 
+                const data = await response.json();
+  console.log("data",data);
+                setUsername(data.username);
+                setRoleName(data.roleName);
+
+                console.log(data.Username, data.RoleName);
             } catch (err) {
                 setError("Ошибка авторизации (401)");
                 console.error(err);
             }
         };
+
         if (token) {
             fetchData();
         }
@@ -38,22 +57,17 @@ export default function HomePage({ token, setToken }) {
 
     // -----------------------------------------------------------------------------
 
-      const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    window.location.reload();
-  };
 
 
     return (
         <div className='main'>
             <div className='main-container'>
-                <MainHeader />
+                <MainHeader token ={token} setToken={setToken}/>
                 <InfoWellcome />
-                <Services isMain={true} roleName={roleName}/>
+                <Services isMain={true} roleName={roleName} />
                 <WeddingBunner />
-                <Teams isMain={true} roleName={roleName}/>
-                <Portfolio isMain={true} roleName={roleName}/>
+                <Teams isMain={true} roleName={roleName} />
+                <Portfolio isMain={true} roleName={roleName} />
                 <Products />
             </div>
         </div>

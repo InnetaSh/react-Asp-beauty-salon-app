@@ -1,4 +1,6 @@
 ﻿using beauti_salon_app.Data;
+using beauti_salon_app.Models;
+using beauti_salon_app.Models.Enums;
 using beauti_salon_app.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,19 +32,62 @@ namespace beauti_salon_app.Controllers
 
             var token = _tokenService.GenerateJwtToken(user);
 
-            return Ok(new
+
+            var response = new LoginResponse
             {
-                token,
-                role = user.RoleName,
-                username = user.Username
-            });
+                Username = user.Username,
+                Token = token,
+                RoleName = user.RoleName.ToString(),
+            };
+
+            return Ok(response);
+          
+        }
+    
+
+   
+    [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+        
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+            if (existingUser != null)
+                return BadRequest("Пользователь с таким именем уже существует");
+
+           
+            var newUser = new User
+            {
+                Username = request.Username,
+                Password = request.Password,
+                Email = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                RoleName = UserRole.Client, 
+                Token = "", 
+                LastLogin = null
+            };
+
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
+
+           
+            var token = _tokenService.GenerateJwtToken(newUser);
+
+            var response = new RegisterResponse
+            {
+                Username = newUser.Username,
+                Token = token,
+                RoleName = newUser.RoleName.ToString(),
+            };
+
+            return Ok(response);
         }
     }
 
-    public class LoginRequest
-    {
-        public string? Username { get; set; }
-        public string? Password { get; set; }
-    }
+   
+
 
 }
+
+
+
+

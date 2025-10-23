@@ -61,24 +61,22 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+
+app.UseCors("AllowReactApp");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.MapRazorPages();
-
-
 app.MapControllers();
 
 app.Run();
+

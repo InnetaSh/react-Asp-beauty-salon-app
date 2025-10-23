@@ -7,6 +7,7 @@
   --color-dark-grey: #414040;
   --color-muted: #A5996E;
   --color-white: #FFFFFF;
+    --color-red: #c40101;
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -25,6 +26,20 @@ h2 {
   font-weight: bold;
   color: var(--color-gold);
   margin-bottom: 15px;
+}
+
+.error-message {
+  height: 36px;
+  color: var(--color-red);
+  font-size: 22px;
+  text-decoration: underline;
+  transition: font-size 0.5s ease;
+}
+
+
+.error-message.shrink {
+   height: 36px;
+  font-size: 18px;
 }
 
 

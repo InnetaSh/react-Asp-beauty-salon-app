@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import HeaderComponent from '../ui/header-component';
-
+import baseMenuList from '../../data/menu_list';
 import '../../index.css'
 
-const menu_list = [
-  { title: 'home', path: '/' },
-  { title: 'services', path: '/services' },
-  { title: 'shop', path: '/products' },
-  { title: 'Blog', path: '/reviews' },
-  { title: 'login', path: '/login' },
-  { title: 'register', path: '/register' }
-];
 
-const Header = () => {
+const Header = ({ token, setToken }) => {
+  const navigate = useNavigate();
   const [topServices, setTopServices] = useState([]);
-   const [name, setName] = useState("");
+  const [name, setName] = useState("");
+
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    navigate("/");
+  };
+
+  const menuItems = token
+    ? [
+      ...baseMenuList,
+      { title: 'My Account', path: '/account' },
+      { title: 'Exit', action: handleLogout }
+    ]
+    : [
+      ...baseMenuList,
+      { title: 'SignIn', path: '/login' }
+    ];
 
   useEffect(() => {
-  fetch('/api/UI/bgHeader')
-    .then(res => {
-      console.log('Ответ от сервера:', res);
-      return res.json();
-    })
-    .then(data => {
-      console.log('Получили данные:', data);
-      setTopServices(data);
-    })
-    .catch(err => console.error('Ошибка при загрузке:', err));
-}, []);
+    fetch('/api/UI/bgHeader')
+      .then(res => {
+        console.log('Ответ от сервера:', res);
+        return res.json();
+      })
+      .then(data => {
+        console.log('Получили данные:', data);
+        setTopServices(data);
+      })
+      .catch(err => console.error('Ошибка при загрузке:', err));
+  }, []);
 
-useEffect(() => {
+  useEffect(() => {
     fetch('/api/UI/name')
       .then(res => res.json())
       .then(data => {
@@ -39,13 +51,15 @@ useEffect(() => {
       });
   }, []);
 
-console.log(topServices);
+  console.log(topServices);
   const handleLearnMore = (id) => {
     console.log('Learn more about topServices', id);
-    
+
   };
 
-  return <HeaderComponent bunners={topServices} name = {name} menu_list={menu_list} onLearnMore={handleLearnMore} />;
+
+
+  return <HeaderComponent bunners={topServices} name={name} menu_list={menuItems} onLearnMore={handleLearnMore} />;
 };
 
 export default Header;
