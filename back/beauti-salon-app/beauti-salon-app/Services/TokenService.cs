@@ -29,20 +29,22 @@ namespace beauti_salon_app.Services
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
 
-            // 🔹 Основные клеймы (Claims) — данные, которые зашифровываются в токен
+          
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.RoleName),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                 
+                new Claim(ClaimTypes.Role, user.RoleName.ToString()),
+                  new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            // 🔹 Генерация ключа
+   
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            // 🔹 Создание токена
+
             var token = new JwtSecurityToken(
                 issuer: _issuer,
                 audience: _audience,
@@ -51,7 +53,6 @@ namespace beauti_salon_app.Services
                 signingCredentials: creds
             );
 
-            // 🔹 Преобразуем объект токена в строку
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

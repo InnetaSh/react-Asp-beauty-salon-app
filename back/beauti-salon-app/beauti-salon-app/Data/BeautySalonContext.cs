@@ -30,6 +30,13 @@ namespace beauti_salon_app.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Наследование (TPH — Table Per Hierarchy)
+            modelBuilder.Entity<User>()
+                .HasDiscriminator<string>("UserType")
+                .HasValue<User>("User")
+                .HasValue<Client>("Client")
+                .HasValue<Admin>("Admin");
+
             // ====== Связь "Мастер ↔️ Подуслуга" (многие ко многим)
             modelBuilder.Entity<SubServiceMaster>()
                 .HasKey(sm => new { sm.SubServiceId, sm.MasterId });

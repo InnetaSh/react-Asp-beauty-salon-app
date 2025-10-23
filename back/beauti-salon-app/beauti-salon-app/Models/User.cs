@@ -16,4 +16,24 @@ namespace beauti_salon_app.Models
 
         public DateTime? LastLogin { get; set; }
     }
+
+    //------------------------------------------------------
+    public class LogRequest
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
+
+    public class TokenRequest
+    {
+        public string Token { get; set; }
+    }
+
+    public class LoginResponse
+    {
+        public string Username { get; set; }
+        public string Token { get; set; }
+        public string RoleName { get; set; }
+    }
 }

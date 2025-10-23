@@ -5,7 +5,7 @@ import Header from '../../components/uiContainer/Header';
 import BunnerTitle from '../../components/ui/bunner-title';
 import Masters from "../../components/uiContainer/Masters";
 
-export default function SubServiceDetailPage() {
+export default function SubServiceDetailPage({ token, setToken }) {
   const { category, subcategory } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
   const navigate = useNavigate();

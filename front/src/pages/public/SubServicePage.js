@@ -9,7 +9,7 @@ import BunnerTitle from '../../components/ui/bunner-title';
 import BtnGreyList from '../../components/ui/btn-grey-list';
 import SubServices from '../../components/uiContainer/SubServices'
 
-export default function SubServicePage() {
+export default function SubServicePage({ token, setToken }) {
   const { category } = useParams();
   const navigate = useNavigate();
   const location = useLocation();

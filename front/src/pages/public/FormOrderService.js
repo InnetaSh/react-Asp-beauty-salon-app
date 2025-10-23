@@ -7,7 +7,7 @@ import BunnerTitle from '../../components/ui/bunner-title';
 
 import '../../index.css'
 
-export default function FormOrderService() {
+export default function FormOrderService({ token, setToken }) {
   const navigate = useNavigate();
   
 

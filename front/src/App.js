@@ -32,23 +32,27 @@ import StatisticsPage from './pages/admin/StatisticsPage';
 import SubServiceDetailPage from './pages/public/SubServiceDetailPage';
 import MasterDetailPage from './pages/public/MasterDetailPage';
 import FormOrderService from './pages/public/FormOrderService';
+
+
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
   return (
     <Router>
-     
+
       <Routes>
         {/* Публичные маршруты */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/services" element={<ServicesPage isMain={false} />} />
-        <Route path="/services/:category" element={<ServiceCategoryPage />} />
-       <Route path="/services/:category/:subcategory" element={<SubServiceDetailPage />} />
-        <Route path="/services/:category/:subcategory/:masterId" element={<MasterDetailPage />} />
-        <Route path="/services/:category/:subcategory/:masterId/order-service" element={<FormOrderService />} />
+        <Route path="/" element={<HomePage token={token} setToken={setToken}/>} />
+        <Route path="/services" element={<ServicesPage isMain={false} token={token} setToken={setToken}/>} />
+        <Route path="/services/:category" element={<ServiceCategoryPage token={token} setToken={setToken}/>} />
+        <Route path="/services/:category/:subcategory" element={<SubServiceDetailPage token={token} setToken={setToken}/>} />
+        <Route path="/services/:category/:subcategory/:masterId" element={<MasterDetailPage token={token} setToken={setToken}/>} />
+        <Route path="/services/:category/:subcategory/:masterId/order-service" element={<FormOrderService token={token} setToken={setToken}/>} />
 
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetailsPage />} />
         <Route path="/reviews" element={<ReviewsPage />} />
-        <Route path="/login" element={<AuthForm />} />
+        <Route path="/login" element={<AuthForm setToken={setToken}/>} />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Пользовательские маршруты (требуется авторизация) */}

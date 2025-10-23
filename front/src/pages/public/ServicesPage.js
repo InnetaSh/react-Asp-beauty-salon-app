@@ -5,7 +5,7 @@ import Header from '../../components/uiContainer/Header';
 import Services from '../../components/uiContainer/Services';
 
 
-export default function ServicesPage({flag}) {
+export default function ServicesPage({flag,  token, setToken }) {
   
 
   return (

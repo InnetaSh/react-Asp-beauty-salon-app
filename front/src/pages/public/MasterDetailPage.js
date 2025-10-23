@@ -8,7 +8,7 @@ import InfoMaster from '../../components/ui/info-master';
 import CardMaster from "../../components/ui/card-master"
 import Portfolio from '../../components/uiContainer/Portfolio'
 
-export default function MasterDetailPage() {
+export default function MasterDetailPage({ token, setToken }) {
   const { category, subcategory, masterId } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
 

@@ -55,7 +55,6 @@ namespace beauti_salon_app.Controllers
             if (existingMaster == null)
                 return NotFound(new { message = "Master not found" });
 
-            // Обновляем поля
             existingMaster.Name = updatedMaster.Name;
             existingMaster.Experience = updatedMaster.Experience;
             existingMaster.Description = updatedMaster.Description;
@@ -101,7 +100,7 @@ namespace beauti_salon_app.Controllers
             _context.Masters.Remove(master);
             await _context.SaveChangesAsync();
 
-            return NoContent(); // Стандартный ответ на успешное удаление
+            return NoContent(); 
         }
 
 
@@ -193,7 +192,7 @@ namespace beauti_salon_app.Controllers
             _context.PortfolioItems.Remove(item);
             await _context.SaveChangesAsync();
 
-            return NoContent(); // 204
+            return NoContent(); 
         }
 
 

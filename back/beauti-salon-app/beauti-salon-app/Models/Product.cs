@@ -13,9 +13,11 @@ namespace beauti_salon_app.Models
 
         [Required(ErrorMessage = "Цена обязательна")]
         [Range(0, double.MaxValue, ErrorMessage = "Цена должна быть положительной")]
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
- 
+        public double NewPrice { get; set; }
+
+
         [Required(ErrorMessage = "Категория обязательна")]
         public string Category { get; set; }
 
@@ -25,6 +27,6 @@ namespace beauti_salon_app.Models
 
         public string? Description { get; set; }
 
-        public string? ImageUrl { get; set; }
+        public string? ImageSrc { get; set; }
     }
 }
