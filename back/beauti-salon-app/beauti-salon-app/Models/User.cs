@@ -1,12 +1,8 @@
-﻿namespace beauti_salon_app.Models
+﻿using beauti_salon_app.Models.Enums;
+namespace beauti_salon_app.Models
 {
 
-    public enum UserRole
-    {
-        Admin,
-        Master,
-        Client
-    }
+
     public class User
     {
         public int Id { get; set; }

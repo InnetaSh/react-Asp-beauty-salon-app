@@ -1,11 +1,12 @@
 ﻿using System.Text.Json.Serialization;
+using beauti_salon_app.Models.Enums;
 
 namespace beauti_salon_app.Models
 {
     public class Client:User
     {
-        public string RoleName { get; set; } = "Client";
-        public string? Contact { get; set; }
+        public UserRole RoleName { get; set; } = UserRole.Client;
+ 
 
         public int BonusCount { get; set; } = 0;
         [JsonIgnore]

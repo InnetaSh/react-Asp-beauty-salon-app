@@ -1,25 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using beauti_salon_app.Models.Enums;
 
 namespace beauti_salon_app.Models
 {
-    public enum ProductClassType
-    {
-        Натуральная = 1,
-        Элитная = 2,
-        Аптечная = 3,
-        Профессиональная = 4
-    }
-
-    public enum ProductCategory
-    {
-        Макияж = 1,
-        УходЗаЛицом = 2,
-        УходЗаВолосами = 3,
-        УходЗаТелом = 4,
-        Ногти = 5
-    }
-
     public class Product
     {
         public int Id { get; set; }
