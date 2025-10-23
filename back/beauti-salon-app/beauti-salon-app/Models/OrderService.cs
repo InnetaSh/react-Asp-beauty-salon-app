@@ -28,6 +28,10 @@ namespace beauti_salon_app.Models
         public SubService? SubService { get; set; }
 
 
-        public string Status { get; set; } = "Pending"; 
+        public string Status { get; set; } = "Pending";
+
+        public int? ClientId { get; set; } 
+        [JsonIgnore]
+        public Client? Client { get; set; }
     }
 }
