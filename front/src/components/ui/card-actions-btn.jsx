@@ -1,6 +1,12 @@
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 
 const CardActionsBtn = ({ onEdit, onDelete }) => {
+  const role = localStorage.getItem("role");
+
+    if (role === "Client") {
+    return null; 
+  }
+
   return (
     <div className="card-actions">
       {onEdit && (

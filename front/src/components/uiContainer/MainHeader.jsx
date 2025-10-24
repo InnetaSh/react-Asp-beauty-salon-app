@@ -15,7 +15,9 @@ const MainHeader = ({ token, setToken }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     setToken(null);
+    console.log('User logged out', token);
     navigate("/");
   };
 
@@ -30,6 +32,7 @@ const MainHeader = ({ token, setToken }) => {
       ...baseMenuList,
       { title: 'SignIn', path: '/login' }
     ];
+  console.log(" Menu Items:", menuItems);
 
 
   useEffect(() => {

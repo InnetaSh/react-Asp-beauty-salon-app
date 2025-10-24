@@ -17,7 +17,7 @@ export default function HomePage({ token, setToken }) {
     const [roleName, setRoleName] = useState("client");
     const [error, setError] = useState("");
     console.log("token",token);
-    console.log("Username",username);
+    // -------------------------------------------------------------------------
 
     useEffect(() => {
         const fetchData = async () => {

@@ -31,7 +31,7 @@ h2 {
 .error-message {
   height: 36px;
   color: var(--color-red);
-  font-size: 22px;
+  font-size: 20px;
   text-decoration: underline;
   transition: font-size 0.5s ease;
 }

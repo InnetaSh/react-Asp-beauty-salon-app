@@ -76,14 +76,20 @@ const AuthForm = ({ setToken }) => {
       const data = await response.json();
 
       const token = data.token;
-      const role = data.role;
+      const role = data.roleName;
+      const Username = data.username;
 
       localStorage.setItem("token", token);
       setToken(token);
+      setUsername(Username);
       setRoleName(role);
 
-      console.log(data);
+      localStorage.setItem("role", role);
+      localStorage.setItem("username", Username);
 
+      console.log(data);
+  console.log("User role:", role);
+  console.log("Username:", Username);
       
         navigate("/");
       
