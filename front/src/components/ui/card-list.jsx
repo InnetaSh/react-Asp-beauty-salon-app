@@ -8,14 +8,14 @@ const CardList = ({
   onLearnMore,
   onDelete,
   onEdit,
-  onAdd,         
+  onAdd,
   learnMoreKey = 'category',
-  editMode = true 
+  editMode = true
 }) => {
-  const role = localStorage.getItem("role") ;
-if (role === "Client") {
-    editMode = false; 
-}
+  const role = localStorage.getItem("role");
+  if (role === "Client") {
+    editMode = false;
+  }
 
   return (
     <div className="card-list">
@@ -39,9 +39,9 @@ if (role === "Client") {
             imageSrc={PngPlus}
             title=""
             price=""
-            onLearnMore={onAdd} 
-           buttonText="Добавить сервис"
-             customClass="add-card" 
+            onLearnMore={onAdd}
+            buttonText="Добавить сервис"
+            customClass="add-card"
           />
         )}
       </div>

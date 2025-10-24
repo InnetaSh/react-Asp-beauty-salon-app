@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import CardListMaster from '../ui/card-list-master';
 import EditMasterModal from '../modals/EditMasterModal';
+import AddMasterModal from '../modals/AddMasterModal';
 
-const Masters = ({ masters, category, subcategory, onRefresh ,buttonText}) => {
+const Masters = ({ masters, category, subcategory, onRefresh, buttonText }) => {
   const navigate = useNavigate();
   const [editingMaster, setEditingMaster] = useState(null);
+  const [addMaster, setAddMaster] = useState(false);
 
   const handleMasterInfo = (id) => {
     navigate(`/services/${category}/${subcategory}/${id}`);
@@ -26,7 +28,12 @@ const Masters = ({ masters, category, subcategory, onRefresh ,buttonText}) => {
   const handleEdit = (master) => {
     setEditingMaster(master);
   };
-console.log("all masters", masters);
+
+  const handleAdd = () => {
+    setAddMaster(true);
+    console.log("Add: master");
+  };
+  console.log("all masters", masters);
   return (
     <>
       <CardListMaster
@@ -34,13 +41,21 @@ console.log("all masters", masters);
         onLearnMore={handleMasterInfo}
         onDelete={handleDelete}
         onEdit={handleEdit}
-        buttonText ={buttonText}
+        buttonText={buttonText}
+        onAdd={handleAdd}
       />
 
       {editingMaster && (
         <EditMasterModal
           master={editingMaster}
           onClose={() => setEditingMaster(null)}
+          onSave={onRefresh}
+        />
+      )}
+
+      {addMaster && (
+        <AddMasterModal
+          onClose={() => setAddMaster(false)}
           onSave={onRefresh}
         />
       )}
