@@ -71,7 +71,7 @@ export default function MasterDetailPage({ token, setToken }) {
   return (
     <div className='main'>
       <div className='main-container'>
-        <Header />
+        <Header token={token}/>
         <BunnerTitle title={master.name || 'Our Masrets'} />
 
 

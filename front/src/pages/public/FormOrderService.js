@@ -9,7 +9,7 @@ import '../../index.css'
 
 export default function FormOrderService({ token, setToken }) {
   const navigate = useNavigate();
-  
+
 
   const { category, subcategory, masterId } = useParams();
   const decodedSubCategory = formatUrlToCategory(subcategory);
@@ -91,7 +91,7 @@ export default function FormOrderService({ token, setToken }) {
     fetchData();
   }, [subcategory]);
 
-const handleBack = () => {
+  const handleBack = () => {
     navigate(`/services/${category}/${subcategory}/${masterId}`);
   };
 
@@ -142,8 +142,8 @@ const handleBack = () => {
       setTimeout(() => {
         congratulationEl.classList.add("non-display");
       }, 8000);
-        setTimeout(() => {
-     navigate(`/`);
+      setTimeout(() => {
+        navigate(`/`);
       }, 10000);
     } catch (err) {
       setMessage("❌ " + err.message);
@@ -156,7 +156,7 @@ const handleBack = () => {
   return (
     <div className='main'>
       <div className='main-container'>
-        <Header />
+        <Header token={token}/>
         <BunnerTitle title={master.name || 'Our Master'} />
         <div className='text-wrapper non-display' id="congratulationText">
           <div className='big-text'>{congratulationText}</div>
@@ -202,10 +202,10 @@ const handleBack = () => {
                 required
               />
             </div>
-<div className='btn-container'>
-            <button type="submit" className='btn-gold '>Записаться</button>
-             <button  className='btn-gold '  onClick={handleBack}>назад</button>
-             </div>
+            <div className='btn-container'>
+              <button type="submit" className='btn-gold '>Записаться</button>
+              <button className='btn-gold ' onClick={handleBack}>назад</button>
+            </div>
           </form>
         </div>
 

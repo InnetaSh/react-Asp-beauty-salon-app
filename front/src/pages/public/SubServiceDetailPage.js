@@ -65,7 +65,7 @@ export default function SubServiceDetailPage({ token, setToken }) {
   return (
     <div className='main'>
       <div className='main-container'>
-        <Header />
+        <Header token={token}/>
         <BunnerTitle title={decodedSubCategory || 'Our Masters'} />
 
         <p className='text-description'>{description}</p>

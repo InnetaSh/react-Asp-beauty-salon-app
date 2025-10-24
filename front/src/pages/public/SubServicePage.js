@@ -46,7 +46,7 @@ export default function SubServicePage({ token, setToken }) {
   return (
     <div className='main'>
       <div className='main-container'>
-        <Header />
+        <Header token={token}/>
         <BunnerTitle title={foundBanner?.category || 'Услуга'} />
 
         <div className='main-details'>
