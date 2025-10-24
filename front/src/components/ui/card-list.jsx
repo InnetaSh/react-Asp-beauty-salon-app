@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from './card';
-import { FaPlus } from 'react-icons/fa';
 import PngPlus from '../../img/png-plus.png'
 
 const CardList = ({

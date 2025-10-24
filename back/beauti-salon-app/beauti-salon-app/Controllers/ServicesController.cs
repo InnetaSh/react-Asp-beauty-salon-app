@@ -17,7 +17,6 @@ namespace beauti_salon_app.Controllers
         }
 
         // GET: api/Services
-        // 👉 Получить все сервисы с подуслугами и мастерами
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Service>>> GetAllServices()
         {
@@ -31,7 +30,6 @@ namespace beauti_salon_app.Controllers
         }
 
         // GET: api/Services/{id}
-        // 👉 Получить один сервис по Id с подуслугами и мастерами
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetServiceById(int id)
         {
@@ -48,7 +46,6 @@ namespace beauti_salon_app.Controllers
         }
 
         // GET: api/Services/{id}/subservices
-        // 👉 Получить все подуслуги конкретного сервиса
         [HttpGet("{id}/subservices")]
         public async Task<ActionResult<IEnumerable<SubService>>> GetSubServices(int id)
         {
@@ -65,7 +62,6 @@ namespace beauti_salon_app.Controllers
         }
 
         // GET: api/Services/subservice/{id}
-        // 👉 Получить конкретную подуслугу с мастерами
         [HttpGet("subservice/{id}")]
         public async Task<ActionResult<SubService>> GetSubServiceById(int id)
         {
@@ -81,7 +77,7 @@ namespace beauti_salon_app.Controllers
         }
 
 
-        //для создания нового сервиса с подуслугами
+  
         // POST: api/Services
         [HttpPost]
         public async Task<ActionResult<Service>> CreateService(Service service)
@@ -95,7 +91,7 @@ namespace beauti_salon_app.Controllers
             return CreatedAtAction(nameof(GetServiceById), new { id = service.Id }, service);
         }
 
-        //Создание подуслуги к сервису
+ 
         // POST: api/Services/{serviceId}/subservices
         [HttpPost("{serviceId}/subservices")]
         public async Task<ActionResult<SubService>> CreateSubService(int serviceId, SubService subService)
@@ -109,7 +105,7 @@ namespace beauti_salon_app.Controllers
             return CreatedAtAction(nameof(GetSubServiceById), new { id = subService.Id }, subService);
         }
 
-        //Связывание мастера с подуслугой
+
         [HttpPost("subservicemasters")]
         public async Task<ActionResult<SubServiceMaster>> CreateSubServiceMaster(SubServiceMaster ssm)
         {
@@ -150,7 +146,6 @@ namespace beauti_salon_app.Controllers
         }
 
         // PUT: api/Services/{id}
-        //  Обновление данных сервиса
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateService(int id, Service updatedService)
         {
@@ -161,7 +156,7 @@ namespace beauti_salon_app.Controllers
             if (existingService == null)
                 return NotFound(new { message = "Service not found" });
 
-            // Обновляем поля (если нужно, можешь добавить проверку на null)
+     
             existingService.Title = updatedService.Title;
             existingService.Description = updatedService.Description;
             existingService.ImageSrc = updatedService.ImageSrc;
@@ -182,7 +177,6 @@ namespace beauti_salon_app.Controllers
 
 
         // PUT: api/Services/subservice/{id}
-        //  Обновление подуслуги по Id
         [HttpPut("subservice/{id}")]
         public async Task<IActionResult> UpdateSubService(int id, SubService updatedSubService)
         {
@@ -193,7 +187,7 @@ namespace beauti_salon_app.Controllers
             if (existingSubService == null)
                 return NotFound(new { message = "SubService not found" });
 
-            // Обновляем поля
+       
             existingSubService.Title = updatedSubService.Title;
             existingSubService.Description = updatedSubService.Description;
             existingSubService.ImageSrc = updatedSubService.ImageSrc;
@@ -209,7 +203,7 @@ namespace beauti_salon_app.Controllers
                 return StatusCode(500, new { message = "Error updating the subservice" });
             }
 
-            return NoContent(); // 204 — всё ок, без тела
+            return NoContent(); 
         }
 
 
@@ -218,7 +212,7 @@ namespace beauti_salon_app.Controllers
         public async Task<IActionResult> DeleteService(int id)
         {
             var service = await _context.Services
-                .Include(s => s.SubServices) // включаем связанные подуслуги
+                .Include(s => s.SubServices) 
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             if (service == null)

@@ -3,17 +3,17 @@ import '../../index.css';
 
 const EditPortfolioModal = ({ portfolio, onClose, onSave }) => {
   const [formData, setFormData] = useState({ ...portfolio });
-  const [preview, setPreview] = useState(portfolio.imageSrc); // Предпросмотр
+  const [preview, setPreview] = useState(portfolio.imageSrc); 
 
 
-  const [imagePath, setImagePath] = useState(portfolio.imageSrc); // путь к файлу, который отправим
+  const [imagePath, setImagePath] = useState(portfolio.imageSrc); 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result); // base64 превью для отображения
+        setPreview(reader.result); 
       };
       reader.readAsDataURL(file);
 
