@@ -4,16 +4,19 @@ import { formatCategoryToUrl } from '../../utils/urlHelpers';
 import CardList from '../ui/card-list';
 import BtnList from '../ui/btn-list';
 import EditServiceModal from '../modals/EditServiceModal'
+import AddServiceModal from '../modals/AddServiceModal';
+import BunnerTitle from '../ui/bunner-title';
 
-const Services = ({isMain, onLearnMore }) => {
+const Services = ({ isMain, onLearnMore }) => {
   const navigate = useNavigate();
 
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('All'); 
-   const [editingService, setEditingService] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [editingService, setEditingService] = useState(null);
+  const [addService, setAddService] = useState(false);
 
- const fetchServices = () => {
+  const fetchServices = () => {
     const url = '/api/services';
 
     fetch(url)
@@ -31,11 +34,11 @@ const Services = ({isMain, onLearnMore }) => {
   }, [isMain]);
 
 
-const handleLearnMore = (category) => {
-  const urlCategory = formatCategoryToUrl(category);
-  navigate(`/services/${urlCategory}`, { state: { categories, services } });
-  console.log('Learn more about product', category);
-};
+  const handleLearnMore = (category) => {
+    const urlCategory = formatCategoryToUrl(category);
+    navigate(`/services/${urlCategory}`, { state: { categories, services } });
+    console.log('Learn more about product', category);
+  };
 
 
 
@@ -47,18 +50,22 @@ const handleLearnMore = (category) => {
       const res = await fetch(`/api/Services/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error("Ошибка удаления");
 
-      fetchServices(); 
+      fetchServices();
     } catch (err) {
       console.error("Ошибка при удалении:", err);
     }
   };
 
-    const handleEdit = (service) => {
+  const handleEdit = (service) => {
     setEditingService(service);
-    
+
     console.log("Редактирование:", service);
   };
 
+  const handleAdd = () => {
+    setAddService(true);
+    console.log("Add: service");
+  };
 
 
   const filteredServices =
@@ -68,10 +75,8 @@ const handleLearnMore = (category) => {
 
   return (
     <div>
-      <div className='title-container'>
-        <h3 className='title'>Our Services</h3>
-        <div className='bottom-line'></div>
-      </div>
+      <BunnerTitle title="Our Services" />
+
 
       {isMain && (
         <BtnList
@@ -83,18 +88,27 @@ const handleLearnMore = (category) => {
       <CardList
         products={filteredServices}
         onLearnMore={handleLearnMore}
-         onDelete={handleDelete}
+        onDelete={handleDelete}
         onEdit={handleEdit}
+        onAdd = {handleAdd}
       />
 
-       {/* Модальное окно редактирования */}
+      {/* Модальное окно редактирования */}
       {editingService && (
-  <EditServiceModal
-    service={editingService }
-    onClose={() => setEditingService(null)}
-    onSave={fetchServices}
-  />
-)}
+        <EditServiceModal
+          service={editingService}
+          onClose={() => setEditingService(null)}
+          onSave={fetchServices}
+        />
+      )}
+
+      {/* Модальное окно добавления */}
+      {addService && (
+        <AddServiceModal
+          onClose={() => setAddService(false)}
+          onSave={fetchServices}
+        />
+      )}
     </div>
   );
 };

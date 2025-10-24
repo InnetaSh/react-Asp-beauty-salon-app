@@ -1,13 +1,22 @@
 import React from 'react';
 import Card from './card';
+import { FaPlus } from 'react-icons/fa';
+import PngPlus from '../../img/png-plus.png'
 
 const CardList = ({
   products,
   onLearnMore,
   onDelete,
   onEdit,
-  learnMoreKey = 'category' 
+  onAdd,         
+  learnMoreKey = 'category',
+  editMode = true 
 }) => {
+  const role = localStorage.getItem("role") ;
+if (role === "Client") {
+    editMode = false; 
+}
+
   return (
     <div className="card-list">
       <div className="card-list-container">
@@ -22,6 +31,19 @@ const CardList = ({
             onEdit={() => onEdit(product)}
           />
         ))}
+
+        {/* Карточка для добавления нового сервиса */}
+        {editMode && onAdd && (
+          <Card
+            key="add-card"
+            imageSrc={PngPlus}
+            title=""
+            price=""
+            onLearnMore={onAdd} // или отдельный onAdd callback
+           buttonText="Добавить сервис"
+             customClass="add-card" 
+          />
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import React from 'react';
-
-const BunnerTitle = ({title }) => {
+import CardActionsBtn from './card-actions-btn';
+const BunnerTitle = ({title, onAdd }) => {
     return (
              <div className='title-container'>
-                <h3 className='title'>{title}</h3>
+                
+                <h3 className='title'><CardActionsBtn onAdd={onAdd}/>{title}</h3>
                 <div className='bottom-line'></div>
             </div>
     );

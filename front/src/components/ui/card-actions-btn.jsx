@@ -1,7 +1,7 @@
-import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import { FaTrashAlt, FaEdit, FaPlus } from 'react-icons/fa';
 
-const CardActionsBtn = ({ onEdit, onDelete }) => {
-  const role = localStorage.getItem("role");
+const CardActionsBtn = ({ onEdit, onDelete,onAdd }) => {
+  const role = localStorage.getItem("role") ;
 
     if (role === "Client") {
     return null; 
@@ -9,6 +9,11 @@ const CardActionsBtn = ({ onEdit, onDelete }) => {
 
   return (
     <div className="card-actions">
+          {onAdd && (
+        <button onClick={onAdd} className="card-action-button add">
+          <FaPlus />
+        </button>
+      )}
       {onEdit && (
         <button onClick={onEdit} className="card-action-button edit">
           <FaEdit />

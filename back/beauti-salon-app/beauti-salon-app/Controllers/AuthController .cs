@@ -4,6 +4,7 @@ using beauti_salon_app.Models.Enums;
 using beauti_salon_app.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 
 namespace beauti_salon_app.Controllers
@@ -54,14 +55,19 @@ namespace beauti_salon_app.Controllers
             if (existingUser != null)
                 return BadRequest("Пользователь с таким именем уже существует");
 
-           
+            UserRole role;
+            if (!Enum.TryParse<UserRole>(request.RoleName, true, out role))
+            {
+                role = UserRole.Client; 
+            }
+
             var newUser = new User
             {
                 Username = request.Username,
                 Password = request.Password,
                 Email = request.Email,
                 PhoneNumber = request.PhoneNumber,
-                RoleName = UserRole.Client, 
+                RoleName = role,
                 Token = "", 
                 LastLogin = null
             };

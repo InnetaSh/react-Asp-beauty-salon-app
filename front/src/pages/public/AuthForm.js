@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import icon from '../../img/Auth/icon.png'
 import backImageSrc from '../../img/Auth/back.jpg'
@@ -31,7 +31,7 @@ const AuthForm = ({ setToken }) => {
   const [lastLogin, setLastLogin] = useState("");
   const [roleName, setRoleName] = useState("user");
 
-
+  const confirmPasswordRef = useRef(null);
 
   const [error, setError] = useState("");
   const [errorName, setErrorName] = useState("");
@@ -40,6 +40,23 @@ const AuthForm = ({ setToken }) => {
 
   const [isRegister, setIsRegister] = useState(false);
 
+
+  const handleConfirmBlur = () => {
+    console.log("Confirm Password:", confirmPassword);
+    console.log("Password:", password);
+    console.log(password !== confirmPassword);
+    if (password !== confirmPassword) {
+      setErrorName("Пароли не совпадают!");
+      if (confirmPasswordRef.current) {
+        confirmPasswordRef.current.classList.add("input-error");
+      }
+    } else {
+      setErrorName("");
+      if (confirmPasswordRef.current) {
+        confirmPasswordRef.current.classList.remove("input-error");
+      }
+    }
+  };
 
 
   const handleLogin = async () => {
@@ -88,11 +105,11 @@ const AuthForm = ({ setToken }) => {
       localStorage.setItem("username", Username);
 
       console.log(data);
-  console.log("User role:", role);
-  console.log("Username:", Username);
-      
-        navigate("/");
-      
+      console.log("User role:", role);
+      console.log("Username:", Username);
+
+      navigate("/");
+
 
     } catch (error) {
       console.error("Ошибка регистрации", error);
@@ -187,15 +204,15 @@ const AuthForm = ({ setToken }) => {
   };
 
 
-    
-    // ----------------------------
+
+  // ----------------------------
   useEffect(() => {
-  if (errorName !== "") {
-    setShrink(false); 
-    const timer = setTimeout(() => setShrink(true), 100); 
-    return () => clearTimeout(timer);
-  }
-}, [errorName]); 
+    if (errorName !== "") {
+      setShrink(false);
+      const timer = setTimeout(() => setShrink(true), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [errorName]);
 
 
   return (
@@ -245,13 +262,15 @@ const AuthForm = ({ setToken }) => {
                     type="password"
                     name="userPassword"
                     placeholder="confirmPassword"
-                    className="login-form-inputBlock"
+                   className={`login-form-inputBlock ${password !== confirmPassword ? "input-error" : ""}`}
                     style={{
                       background: `#eae7e7 url(${icon}) no-repeat`,
                       backgroundPosition: "10px -53px",
                       paddingLeft: "40px"
                     }}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    onBlur={handleConfirmBlur}
+                    ref={confirmPasswordRef}
                   />
 
                   <input
@@ -291,10 +310,10 @@ const AuthForm = ({ setToken }) => {
                         type="radio"
                         className="login-form-radio"
                         name="roleState"
-                        value="admin"
-                        checked={roleName === 'admin'}
+                        value="Admin"
+                        checked={roleName === 'Admin'}
                         onChange={(e) => setRoleName(e.target.value)}
-                    
+
                       />
                       admin
                     </label>
@@ -303,8 +322,8 @@ const AuthForm = ({ setToken }) => {
                         className="login-form-radio"
                         type="radio"
                         name="roleState"
-                        value="master"
-                        checked={roleName === 'master'}
+                        value="Master"
+                        checked={roleName === 'Master'}
                         onChange={(e) => setRoleName(e.target.value)}
                       />
                       master
@@ -314,13 +333,13 @@ const AuthForm = ({ setToken }) => {
                         className="login-form-radio"
                         type="radio"
                         name="roleState"
-                        value="client"
-                        checked={roleName === 'mastclienter'}
+                        value="Client"
+                        checked={roleName === 'Client'}
                         onChange={(e) => setRoleName(e.target.value)}
                       />
                       client
                     </label>
-                    
+
                   </div>
                 </>
               )}
@@ -338,17 +357,17 @@ const AuthForm = ({ setToken }) => {
                 </a>
               </div>
             </form>
- {errorName !== "" && (
-      <p className={`error-message ${shrink ? "shrink" : ""}`}>
-        {error != "" && (
-                      <p>{error}</p>
-                    )}
-                    {errorPassword != "" && (
-                      <p>{errorPassword}</p>
-                    )}
-        {errorName}
-      </p>
-    )}
+            {errorName !== "" && (
+              <p className={`error-message ${shrink ? "shrink" : ""}`}>
+                {error != "" && (
+                  <p>{error}</p>
+                )}
+                {errorPassword != "" && (
+                  <p>{errorPassword}</p>
+                )}
+                {errorName}
+              </p>
+            )}
           </div>
         </div>
       </div>

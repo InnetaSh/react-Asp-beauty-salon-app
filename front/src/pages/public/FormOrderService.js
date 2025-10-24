@@ -91,7 +91,9 @@ export default function FormOrderService({ token, setToken }) {
     fetchData();
   }, [subcategory]);
 
-
+const handleBack = () => {
+    navigate(`/services/${category}/${subcategory}/${masterId}`);
+  };
 
 
 
@@ -200,8 +202,10 @@ export default function FormOrderService({ token, setToken }) {
                 required
               />
             </div>
-
+<div className='btn-container'>
             <button type="submit" className='btn-gold '>Записаться</button>
+             <button  className='btn-gold '  onClick={handleBack}>назад</button>
+             </div>
           </form>
         </div>
 

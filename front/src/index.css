@@ -7,7 +7,8 @@
   --color-dark-grey: #414040;
   --color-muted: #A5996E;
   --color-white: #FFFFFF;
-    --color-red: #c40101;
+  --color-red: #c40101;
+  --color-red-rgb: 255, 0, 0;
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -38,7 +39,7 @@ h2 {
 
 
 .error-message.shrink {
-   height: 36px;
+  height: 36px;
   font-size: 18px;
 }
 
@@ -110,6 +111,7 @@ body {
 
 /* Кнопка с золотым цветом */
 .btn-gold {
+  min-width: 130px;
   background-color: transparent;
   color: var(--color-light);
   border: none;
@@ -170,6 +172,14 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10px 10%;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 
 
@@ -249,6 +259,7 @@ h3 {
   align-items: center;
   margin-bottom: 30px;
   width: 100%;
+  position: relative;
 }
 
 .title {
@@ -358,7 +369,7 @@ a:hover {
 .bunner-slider {
   position: relative;
   width: 100%;
-  
+
   overflow: hidden;
 }
 
@@ -539,6 +550,12 @@ a:hover {
   transition: filter 0.3s ease;
 }
 
+.add-card{
+  
+  object-fit:cover;
+  margin: 0 auto; 
+}
+
 .card-image-wrapper:hover .card-image {
   filter: brightness(1);
 }
@@ -597,15 +614,17 @@ a:hover {
   color: var(--color-light);
   transition: color 0.2s;
 }
+.card-action-button.add:hover {
+  color: #04ff00;
+}
+
 
 .card-action-button.edit:hover {
   color: #007bff;
-  /* синий */
 }
 
 .card-action-button.delete:hover {
   color: #dc3545;
-  /* красный */
 }
 
 /* ===============================
@@ -1146,6 +1165,7 @@ form {
   z-index: -1;
 }
 
+
 #login-form-content:before {
   transform: rotate(-2deg);
   top: 0;
@@ -1161,7 +1181,7 @@ form {
   border-radius: 3px;
   box-shadow: 0 1px 0 var(--color-grey), 0 -5px 5px rgba(0, 0, 0, 0.08) inset;
   transition: all 0.5s ease;
-  border: 1px solid var(--color-grey-2) !important;
+  border: 1px solid var(--color-grey-2);
   color: var(--color-light) !important;
   font: 13px Helvetica, Arial, sans-serif;
   margin: 0 0 10px;
@@ -1169,10 +1189,15 @@ form {
   width: 100%;
 }
 
+.input-error {
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) inset;
+  border: 1px solid rgba(255, 0, 0, 0.7);
+}
+
 
 .login-form-inputBlock:focus {
   box-shadow: 0 0 2px var(--color-gold) inset;
-  background-color:var(--color-grey-2) !important;
+  background-color: var(--color-grey-2) !important;
   border: 2px solid var(--color-gold);
   outline: none;
 }
