@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../../index.css';
 
-const AddServiceModal = ({ onClose, onSave }) => {
+const AddSubServiceModal = ({ categoryId, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     title: '',
-    category: '',
     price: '',
     imageSrc: '',
-    description: ''
+    description: '',
+    categoryId: categoryId || null
   });
 
   const handleChange = (e) => {
@@ -15,29 +15,33 @@ const AddServiceModal = ({ onClose, onSave }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:5266/api/Services', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-      .then(res => {
-        if (!res.ok) throw new Error('Ошибка при добавлении сервиса');
-        onSave();  
-        onClose(); 
-      })
-      .catch(console.error);
+    try {
+      const response = await fetch('/api/Services/subservice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) throw new Error('Ошибка при создании под-сервиса');
+
+      onSave(); 
+      onClose(); 
+    } catch (error) {
+      console.error('Ошибка создания под-сервиса:', error);
+      alert('Не удалось создать под-сервис');
+    }
   };
 
   return (
     <div className="modal-backdrop">
       <div className="modal">
-        <h2>Добавить сервис</h2>
+        <h2>Добавить под-сервис</h2>
         <form onSubmit={handleSubmit}>
-          <div className='modal-input-container'>
-            <label>Title:</label>
+          <div className="modal-input-container">
+            <label>Название:</label>
             <input
               name="title"
               value={formData.title}
@@ -46,45 +50,40 @@ const AddServiceModal = ({ onClose, onSave }) => {
               required
             />
           </div>
-          <div className='modal-input-container'>
-            <label>Category:</label>
-            <input
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              placeholder="Категория"
-            />
-          </div>
-          <div className='modal-input-container'>
-            <label>Price:</label>
+
+          <div className="modal-input-container">
+            <label>Цена:</label>
             <input
               name="price"
+              type="number"
               value={formData.price}
               onChange={handleChange}
               placeholder="Цена"
             />
           </div>
-          <div className='modal-input-container'>
-            <label>Image URL:</label>
+
+          <div className="modal-input-container">
+            <label>URL изображения:</label>
             <input
               name="imageSrc"
               value={formData.imageSrc}
               onChange={handleChange}
-              placeholder="URL изображения"
+              placeholder="https://example.com/image.jpg"
             />
           </div>
-          <div className='modal-input-container'>
-            <label>Description:</label>
+
+          <div className="modal-input-container">
+            <label>Описание:</label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Описание"
+              placeholder="Описание услуги"
             />
           </div>
 
           <div className="modal-buttons">
-            <button type="submit">Добавить</button>
+            <button type="submit">Создать</button>
             <button type="button" onClick={onClose}>Отмена</button>
           </div>
         </form>
@@ -93,4 +92,4 @@ const AddServiceModal = ({ onClose, onSave }) => {
   );
 };
 
-export default AddServiceModal;
+export default AddSubServiceModal;

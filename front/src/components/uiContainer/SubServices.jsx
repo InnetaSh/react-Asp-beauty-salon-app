@@ -4,6 +4,7 @@ import { formatCategoryToUrl } from '../../utils/urlHelpers';
 import CardList from '../ui/card-list';
 import BtnList from '../ui/btn-list';
 import EditSubServiceModal from '../modals/EditSubServiceModal';
+import AddSubServiceModal from '../modals/AddSubServiceModal';
 
 const Services = ({ isMain, onLearnMore }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Services = ({ isMain, onLearnMore }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [editingService, setEditingService] = useState(null);
-
+  const [addService, setAddService] = useState(false);
 
   const fetchServices = async () => {
     try {
@@ -65,6 +66,13 @@ const Services = ({ isMain, onLearnMore }) => {
     setEditingService(service);
   };
 
+
+  const handleAdd = () => {
+    setAddService(true);
+    console.log("Add: service");
+  };
+
+
   const filteredServices =
     selectedCategory !== 'All'
       ? services.filter(item => item.category === selectedCategory)
@@ -87,6 +95,7 @@ const Services = ({ isMain, onLearnMore }) => {
         onDelete={handleDelete}
         onEdit={handleEdit}
         learnMoreKey={isMain ? 'category' : 'title'}
+        onAdd = {handleAdd}
       />
 
 
@@ -94,6 +103,14 @@ const Services = ({ isMain, onLearnMore }) => {
         <EditSubServiceModal
           service={editingService}
           onClose={() => setEditingService(null)}
+          onSave={fetchServices}
+        />
+      )}
+
+      
+      {addService && (
+        <AddSubServiceModal
+          onClose={() => setAddService(false)}
           onSave={fetchServices}
         />
       )}

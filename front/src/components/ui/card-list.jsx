@@ -32,14 +32,14 @@ if (role === "Client") {
           />
         ))}
 
-        {/* Карточка для добавления нового сервиса */}
+
         {editMode && onAdd && (
           <Card
             key="add-card"
             imageSrc={PngPlus}
             title=""
             price=""
-            onLearnMore={onAdd} // или отдельный onAdd callback
+            onLearnMore={onAdd} 
            buttonText="Добавить сервис"
              customClass="add-card" 
           />
