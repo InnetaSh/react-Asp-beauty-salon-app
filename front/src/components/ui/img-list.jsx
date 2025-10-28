@@ -30,7 +30,7 @@ const ImgList = ({
                         onDelete={onDelete}
                     />
                 ))}
-                {!isMain && editMode && onAdd && (
+                {!isMain && editMode && onAdd && token != null && role != "Client" &&  (
           <ImgWithButton
             key="add-card"
             portfolio={PngPlus}
