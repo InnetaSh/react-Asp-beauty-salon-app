@@ -5,7 +5,7 @@ import '../../index.css';
 
 
 
-const MainHeaderComponent = ({ bunners, onLearnMore,name,menu_list }) => {
+const MainHeaderComponent = ({ bunners, onLearnMore,name,menu_list, setToken }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {

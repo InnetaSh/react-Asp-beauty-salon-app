@@ -12,10 +12,9 @@ const CardList = ({
   editMode = true
 }) => {
   const role = localStorage.getItem("role");
-  if (role === "Client") {
-    editMode = false;
-  }
+  const token = localStorage.getItem("token");
 
+  
   return (
     <div className="card-list">
       <div className="card-list-container">
@@ -32,7 +31,7 @@ const CardList = ({
         ))}
 
 
-        {editMode && onAdd && (
+        {editMode && onAdd && token != null && role != "Client" &&  (
           <Card
             key="add-card"
             imageSrc={PngPlus}

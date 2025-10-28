@@ -11,7 +11,7 @@ export default function ServicesPage({flag,  token, setToken }) {
   return (
     <div className='main'>
       <div className='main-container'>
-        <Header token={token}/>
+        <Header token={token} setToken ={setToken}/>
         <Services flag={flag} />
 
        

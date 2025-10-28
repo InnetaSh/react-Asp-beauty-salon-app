@@ -156,7 +156,7 @@ export default function FormOrderService({ token, setToken }) {
   return (
     <div className='main'>
       <div className='main-container'>
-        <Header token={token}/>
+        <Header token={token} setToken={setToken}/>
         <BunnerTitle title={master.name || 'Our Master'} />
         <div className='text-wrapper non-display' id="congratulationText">
           <div className='big-text'>{congratulationText}</div>

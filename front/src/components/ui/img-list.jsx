@@ -13,9 +13,11 @@ const ImgList = ({
 }) => {
     const containerClass = portfolio.length === 1 ? 'img-list-container-first' : 'img-list-container';
     const role = localStorage.getItem("role");
+    const token = localStorage.getItem("token");
+
     if (role === "Client") {
-        editMode = false;
-    }
+    return null; 
+  }
 
     return (
         <div className="img-list">

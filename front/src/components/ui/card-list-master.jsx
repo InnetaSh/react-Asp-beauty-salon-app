@@ -12,10 +12,9 @@ const CardListMaster = ({
     buttonText
 }) => {
     const role = localStorage.getItem("role");
-    if (role === "Client") {
-        editMode = false;
-    }
-
+    const token = localStorage.getItem("token");
+    
+ 
     return (
         <div className="card-list">
             <div className="card-list-container">
@@ -30,7 +29,7 @@ const CardListMaster = ({
                         onEdit={() => onEdit(master)}
                     />
                 ))}
-                {editMode && onAdd && (
+                {editMode && onAdd  && token != null && role != "Client" && (
                     <CardMaster
                         key="add-card"
                         imageSrc={PngPlus}

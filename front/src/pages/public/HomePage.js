@@ -14,9 +14,10 @@ import '../../index.css'
 export default function HomePage({ token, setToken }) {
 
     const [username, setUsername] = useState("");
-    const [roleName, setRoleName] = useState("client");
+    const [roleName, setRoleName] = useState("Client");
     const [error, setError] = useState("");
     console.log("token",token);
+        console.log("roleName",roleName);
     // -------------------------------------------------------------------------
 
     useEffect(() => {

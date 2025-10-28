@@ -67,7 +67,7 @@ const MainHeader = ({ token, setToken }) => {
 
 
 
-  return <MainHeaderComponent bunners={bgHeader} name={name} menu_list={menuItems} onLearnMore={handleLearnMore} />;
+  return <MainHeaderComponent bunners={bgHeader} name={name} menu_list={menuItems} onLearnMore={handleLearnMore} setToken={setToken}/>;
 };
 
 export default MainHeader;

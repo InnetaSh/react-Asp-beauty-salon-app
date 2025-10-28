@@ -59,7 +59,7 @@ const Header = ({ token, setToken }) => {
 
 
 
-  return <HeaderComponent bunners={topServices} name={name} menu_list={menuItems} onLearnMore={handleLearnMore} />;
+  return <HeaderComponent bunners={topServices} name={name} menu_list={menuItems} onLearnMore={handleLearnMore} setToken ={setToken} />;
 };
 
 export default Header;
