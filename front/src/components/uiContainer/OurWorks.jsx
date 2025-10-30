@@ -5,7 +5,7 @@ const OurWorks = (isMain = false) => {
   const [works, setWorks] = useState([]);
 
   useEffect(() => {
-    fetch('/api/Masters/portfolio')
+    fetch('/api/Portfolio')
       .then(res => res.json())
       .then(data => 
         { const portfolio = isMain ? data.filter(item => item.topPortfolio) : data;

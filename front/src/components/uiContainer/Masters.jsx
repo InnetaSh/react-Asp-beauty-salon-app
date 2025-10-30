@@ -17,7 +17,7 @@ const Masters = ({ masters, category, subcategory, onRefresh, buttonText }) => {
     if (!window.confirm("Удалить этого мастера?")) return;
 
     try {
-      const res = await fetch(`/api/masters/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/Masters/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error("Ошибка при удалении");
       onRefresh();
     } catch (err) {

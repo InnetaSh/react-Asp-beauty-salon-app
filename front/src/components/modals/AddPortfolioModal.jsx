@@ -40,7 +40,7 @@ console.log('New image path:', newPath);
     };
 
     try {
-      const res = await fetch(`/api/Masters/${masterId}/portfolio`, {
+      const res = await fetch(`/api/Portfolio/${masterId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

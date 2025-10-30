@@ -1,5 +1,6 @@
 ﻿using beauti_salon_app.Data;
 using beauti_salon_app.Services;
+using beauti_salon_app.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -45,6 +46,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IMasterService, MastersService>();
+builder.Services.AddScoped<IPortfolioService, PortfolioService>();
+
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 

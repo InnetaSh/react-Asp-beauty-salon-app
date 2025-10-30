@@ -12,7 +12,7 @@ const Portfolio = ({ masterId, isMain = false }) => {
   const [folderPath, setFolderPath] = useState('');
 
   const fetchPortfolio = () => {
-    const path = isMain ? "/api/Masters/portfolio" : `/api/Masters/${masterId}/portfolio`;
+    const path = isMain ? "/api/Portfolio" : `/api/Portfolio/master/${masterId}`;
     fetch(path)
       .then(res => res.json())
       .then(data => {
@@ -51,7 +51,7 @@ const Portfolio = ({ masterId, isMain = false }) => {
     if (!window.confirm("Удалить это portfolio?")) return;
 
     try {
-      const res = await fetch(`/api/masters/portfolio/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/Portfolio/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error("Ошибка при удалении");
       fetchPortfolio();
     } catch (err) {
