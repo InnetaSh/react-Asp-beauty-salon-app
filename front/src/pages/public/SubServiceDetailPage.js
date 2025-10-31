@@ -22,21 +22,23 @@ export default function SubServiceDetailPage({ token, setToken }) {
       try {
         setLoading(true);
 
-        const res = await fetch(`/api/Services/subservice/id-by-title?title=${encodeURIComponent(decodedSubCategory)}`);
+        const res = await fetch(`/api/SubService/id-by-title/${encodeURIComponent(decodedSubCategory)}`);
         if (!res.ok) throw new Error("SubService not found");
 
         const subServiceData = await res.json();
-        setSubServiceId(subServiceData.id);
+        console.log("Fetched SubService Data:", subServiceData);
+        setSubServiceId(subServiceData);
 
 
-        const descriptionRes = await fetch(`/api/Services/subservice/${subServiceData.id}`);
+        const descriptionRes = await fetch(`/api/SubService/${subServiceData}`);
         if (!descriptionRes.ok) throw new Error("SubService description not found");
         const descriptionData = await descriptionRes.json();
         setDescription(descriptionData.description);
 
 
-        const mastersRes = await fetch(`/api/Services/subservice/${subServiceData.id}/masters/full`);
+        const mastersRes = await fetch(`/api/SubService/${subServiceData}/masters/full`);
         if (!mastersRes.ok) throw new Error("Masters not found");
+        console.log("Fetched Masters Data:", await mastersRes.clone().json());
         const mastersData = await mastersRes.json();
         setMasters(mastersData);
 
@@ -55,7 +57,7 @@ export default function SubServiceDetailPage({ token, setToken }) {
 
   const handleRefresh = () => {
     if (subServiceId) {
-      fetch(`/api/Services/subservice/${subServiceId}/masters/full`)
+      fetch(`/api/SubService/${subServiceId}/masters/full`)
         .then(res => res.json())
         .then(setMasters)
         .catch(err => console.error("Ошибка при обновлении мастеров:", err));

@@ -52,7 +52,7 @@ const Services = ({ isMain, onLearnMore }) => {
     if (!window.confirm("Удалить этот сервис?")) return;
 
     try {
-      const res = await fetch(`/api/Services/subservice/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/SubService/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error("Ошибка удаления");
 
       await fetchServices();
