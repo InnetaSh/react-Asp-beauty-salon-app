@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../index.css';
 
-const AddPortfolioModal = ({ masterId, onClose, onSave,folderPath }) => {
+const AddPortfolioModal = ({ masterId, onClose, onSave, folderPath }) => {
   const [formData, setFormData] = useState({
     imageSrc: '',
     topPhoto: false,
@@ -14,17 +14,17 @@ const AddPortfolioModal = ({ masterId, onClose, onSave,folderPath }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
-console.log('Folder path received:', folderPath);
+      console.log('Folder path received:', folderPath);
 
-      const folder =folderPath;
+      const folder = folderPath;
       const newPath = folder + file.name;
-console.log('New image path:', newPath);
+      console.log('New image path:', newPath);
       setFormData(prev => ({ ...prev, imageSrc: newPath }));
       setImagePath(newPath);
     }
@@ -48,8 +48,8 @@ console.log('New image path:', newPath);
 
       if (!res.ok) throw new Error('Ошибка при добавлении фото');
 
-      onSave(); 
-      onClose(); 
+      onSave();
+      onClose();
     } catch (err) {
       console.error('Ошибка при добавлении портфолио:', err);
       alert('Не удалось добавить фото в портфолио');

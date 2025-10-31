@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../index.css';
 
 const AddMasterModal = ({ onClose, onSave }) => {
@@ -11,10 +11,63 @@ const AddMasterModal = ({ onClose, onSave }) => {
     topMaster: false,
   });
 
+  
+  const [subServices, setSubServices] = useState([]);
+
+
+  const [selectedSubServices, setSelectedSubServices] = useState([
+    { subServiceId: '', price: '', duration: '' },
+  ]);
+
+
+  useEffect(() => {
+    const fetchSubServices = async () => {
+      try {
+        const res = await fetch('/api/SubService');
+        if (!res.ok) throw new Error('Ошибка при загрузке подуслуг');
+        const list = await res.json();
+        setSubServices(list);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchSubServices();
+  }, []);
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setFormData((prev) => ({ ...prev, topMaster: checked }));
+  };
+
+
+  const handleSubServiceChange = (index, field, value) => {
+    setSelectedSubServices((prev) => {
+      const updated = [...prev];
+      updated[index][field] = value;
+      return updated;
+    });
+  };
+
+
+  const addSubService = () => {
+    setSelectedSubServices((prev) => [
+      ...prev,
+      { subServiceId: '', price: '', duration: '' },
+    ]);
+  };
+
+
+  const removeSubService = (index) => {
+    setSelectedSubServices((prev) => prev.filter((_, i) => i !== index));
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,8 +84,33 @@ const AddMasterModal = ({ onClose, onSave }) => {
         return;
       }
 
-      onSave(); 
-      onClose(); 
+      const createdMaster = await res.json();
+      const masterId = createdMaster.id;
+
+   
+      for (const sub of selectedSubServices) {
+        if (!sub.subServiceId) continue; 
+        const body = {
+          masterId,
+          subServiceId: sub.subServiceId,
+          price: sub.price,
+          duration: sub.duration,
+        };
+
+        const linkRes = await fetch('/api/SubServiceMasters', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+
+        if (!linkRes.ok) {
+          console.error('Ошибка при создании связи с подуслугой', sub);
+        }
+      }
+
+
+      onSave();
+      onClose();
     } catch (error) {
       console.error('Ошибка при создании мастера:', error);
     }
@@ -101,14 +179,78 @@ const AddMasterModal = ({ onClose, onSave }) => {
               type="checkbox"
               name="topMaster"
               checked={formData.topMaster}
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  topMaster: e.target.checked,
-                }))
-              }
+              onChange={handleCheckboxChange}
             />
           </div>
+
+          <h2>Услуги мастера</h2>
+
+          {selectedSubServices.map((sub, index) => (
+            <div key={index} className="modal-subservice-block">
+              <div className="modal-input-container">
+                <label>Подуслуга:</label>
+                <select
+                  value={sub.subServiceId}
+                  onChange={(e) =>
+                    handleSubServiceChange(index, 'subServiceId', e.target.value)
+                  }
+                  required
+                >
+                  <option value="" >Выберите подуслугу</option>
+                  {subServices.map((s) => (
+                    <option key={s.id} value={s.id} >
+                      {s.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="modal-input-container">
+                <label>Цена($):</label>
+                <input
+                  type="number"
+                  value={sub.price}
+                  onChange={(e) =>
+                    handleSubServiceChange(index, 'price', e.target.value)
+                  }
+                  placeholder="Цена услуги"
+                  required
+                />
+              </div>
+
+              <div className="modal-input-container">
+                <label>Длительность(мин):</label>
+                <input
+                  type="number"
+                  value={sub.duration}
+                  onChange={(e) =>
+                    handleSubServiceChange(index, 'duration', e.target.value)
+                  }
+                  placeholder="Продолжительность"
+                  required
+                />
+              </div>
+
+              {selectedSubServices.length > 1 && (
+                <button
+                  type="button"
+                  className="btn-grey btn-smallHeight btn"
+                  onClick={() => removeSubService(index)}
+                >
+                  Удалить
+                </button>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="button"
+            className="btn-grey btn-smallHeight btn"
+            onClick={addSubService}
+          >
+            + Добавить ещё подуслугу
+          </button>
+
 
           <div className="modal-buttons">
             <button type="submit">Создать</button>
